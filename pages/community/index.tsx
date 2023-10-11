@@ -1,6 +1,6 @@
 import ProposalItem from '@/components/Proposal';
 import HomePageBar from '@/components/HomePageBar';
-export default function Proposals() {
+export default function Community() {
   const list = [
     {
       logo: '/Logo.png',
