@@ -68,14 +68,14 @@ export default function Community() {
             {
                 list.map((listItem) => (
                     <>
-                        <div key={listItem.accountAddress} className="relative w-full md:w-[1040px] h-[140px] md:h-[199px] mb-16">
-                            <svg className="absolute top-0 left-0 z-10" width="1040" height="199" viewBox="0 0 1040 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div key={listItem.accountAddress} className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
+                            <svg className="absolute top-0 left-0 z-10 w-full h-full hidden md:block" viewBox="0 0 1100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.78516 65.5738V44.3895L31.8782 3.15088H1008.64L1036.61 44.3895V65.5738M2.78531 133.778V154.962L31.8784 196.201H1008.64L1036.61 154.962V133.778" stroke="#A55FFD" strokeWidth="5.31252"/>
                                 <g filter="url(#filter0_b_62_467)">
                                 <path d="M35.2678 10.7774L9.56445 48.0617V150.569L35.2678 188.983H1003.93L1029.64 150.569V48.0617L1003.93 10.7774H35.2678Z" stroke="#2B37E6" strokeWidth="1.32813"/>
                                 </g>
                                 <defs>
-                                <filter id="filter0_b_62_467" x="-0.272943" y="0.940009" width="1039.75" height="197.88" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                                <filter className='w-full h-full' id="filter0_b_62_467" x="-0.272943" y="0.940009" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                                 <feFlood floodOpacity="0" result="BackgroundImageFix"/>
                                 <feGaussianBlur in="BackgroundImageFix" stdDeviation="4.58667"/>
                                 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_62_467"/>
@@ -83,7 +83,6 @@ export default function Community() {
                                 </filter>
                                 </defs>
                             </svg>
-
                             <div className="relative z-20 flex flex-col justify-center">
                                 <div className='flex gap-2 items-center mb-1 text-sm md:text-lg text-gray-200 mx-4 md:mx-20 mt-8 md:mt-8'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 18 16" fill="none">

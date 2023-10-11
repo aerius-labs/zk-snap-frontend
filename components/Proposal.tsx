@@ -42,7 +42,7 @@ function ProposalItem({proposal}:any) {
                     </div>
                 </div>
                 {proposal.winningAmount ?
-                    <div className='ml-auto text-gray-300 px-6'>
+                    <div className='ml-auto text-gray-300 px-6 mr-6'>
                         <p className='text-sm md:text-xl'>{proposal.winningAmount}</p>
                         <p className='text-xs md:text-sm'>to {proposal.winnerCount} winners</p>
                     </div> : 
