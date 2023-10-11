@@ -38,7 +38,10 @@ export default function Proposals() {
       <div className='flex z-10 gap-8 flex-wrap justify-center items-center'>
         {
           list.map((listItem) => (
-            <ProposalItem proposal={listItem}/>
+            <>
+              <hr className='border-2 border-custom-purple w-full mx-20'/>
+              <ProposalItem proposal={listItem}/>
+            </>
           ))
         }
       </div>

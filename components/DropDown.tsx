@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 
 function Dropdown() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('CATEGORY');
+    const [isOpen, setIsOpen] = useState(false); // to toggle dropdown
+    const [selectedOption, setSelectedOption] = useState('CATEGORY'); // show the selected option
     const dropdownRef = useRef(null);
     const dropDownList = [
         {
@@ -36,20 +36,22 @@ function Dropdown() {
             value:'COLLECTORS'
         }
     ];
+    
     // Close dropdown when clicking outside
-    // useEffect(() => {
-    //     function handleDocumentClick(event){
-    //         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-    //             setIsOpen(false);
-    //         }
-    //     }
-    //     document.addEventListener('mousedown', handleDocumentClick);
-    //     return () => {
-    //         document.removeEventListener('mousedown', handleDocumentClick);
-    //     };
-    // }, []);
+    useEffect(() => {
+        function handleDocumentClick(event: any){
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleDocumentClick);
+        return () => {
+            document.removeEventListener('mousedown', handleDocumentClick);
+        };
+    }, []);
 
-    const handleOptionClick = async (value) => {
+    // handler for fetching communities and proposals according to selected category
+    const handleOptionClick = async (value: any) => {
         setSelectedOption(value);
         setIsOpen(false);
 
@@ -64,7 +66,7 @@ function Dropdown() {
 
     return (
         <div ref={dropdownRef} className="w-36 relative">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-100 w-36 ring-1 ring-custom-purple border py-2 px-4 rounded-2xl flex items-center">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-100 w-36 border border-custom-purple py-2 px-4 rounded-2xl flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
                     <path d="M6.2616 10.2497L6.2616 2.74647C6.2616 2.15448 5.78169 1.67458 5.1897 1.67458L3.58186 1.67458C2.98987 1.67458 2.50997 2.15448 2.50997 2.74647L2.50997 10.2497C2.50997 10.8417 2.98987 11.3216 3.58186 11.3216H5.1897C5.78169 11.3216 6.2616 10.8417 6.2616 10.2497Z" stroke="#DEDEDE" strokeWidth="1.07189"/>
                     <path d="M11.8889 5.42621V2.74647C11.8889 2.15448 11.409 1.67458 10.817 1.67458L9.20912 1.67458C8.61714 1.67458 8.13722 2.15448 8.13722 2.74647V5.42621" stroke="#DEDEDE" strokeWidth="1.07189" strokeLinecap="round"/>
@@ -73,8 +75,9 @@ function Dropdown() {
                 </svg>
                 <p className="ml-1">{selectedOption}</p>
             </button>
+            {/* dropdown list */}
             {isOpen && (
-                <div className="absolute z-20 mt-2 bg-black w-full border border-custom-purple rounded-md shadow-lg">
+                <div className="absolute z-30 mt-2 bg-black w-full border border-custom-purple rounded-md shadow-lg">
                     <ul>
                         <li>
                             <button onClick={() => setIsOpen(!isOpen)} className="text-gray-100 rounded-2xl flex items-center my-2 ml-2">

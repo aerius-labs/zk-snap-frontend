@@ -1,7 +1,9 @@
 import Image from 'next/image';
+
 function CommunityBlock({community}: any) {
     return (
         <div className="relative hover:cursor-pointer">
+            {/* svg image of community border */}
             <svg xmlns="http://www.w3.org/2000/svg" width="241" height="165" viewBox="0 0 241 165" fill="none">
                 <path d="M3.28516 65.574V44.3898L32.3782 3.15112H209.479L237.442 44.3898V65.574" stroke="#A55FFD" strokeWidth="5.31252"/>
                 <path d="M3.28534 99.7782V120.962L32.3784 162.201H209.479L237.442 120.962V99.7782" stroke="#A55FFD" strokeWidth="5.31252"/>
@@ -17,11 +19,12 @@ function CommunityBlock({community}: any) {
                     </filter>
                 </defs>
             </svg>
-        <div className="absolute bottom-1/3 -mb-4 left-1/3 -ml-6 items-center flex flex-col ">
-            <Image src='/Logo.png' width={50} height={50} alt="Community Logo"/>
-            <p className='text-gray-100'>{community?.name}</p>
-            <p className='text-gray-700'>{community?.members}</p>
-        </div>
+            {/* Community name and members count showing under the community on home screen */}
+            <div className="absolute bottom-1/3 -mb-4 left-1/3 -ml-6 items-center flex flex-col ">
+                <Image src='/Logo.png' width={50} height={50} alt="Community Logo"/>
+                <p className='text-gray-100'>{community?.name}</p>
+                <p className='text-gray-700'>{community?.members}</p>
+            </div>
         </div>
     );
 }
