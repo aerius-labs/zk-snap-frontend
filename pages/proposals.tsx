@@ -1,3 +1,4 @@
+import React from 'react'
 import ProposalItem from '@/components/Proposal';
 import HomePageBar from '@/components/HomePageBar';
 export default function Proposals() {
@@ -37,11 +38,11 @@ export default function Proposals() {
       <HomePageBar />
       <div className='flex z-10 gap-8 flex-wrap justify-center items-center'>
         {
-          list.map((listItem) => (
-            <>
+          list.map((listItem, idx) => (
+            <React.Fragment key={idx}>
               <hr className='border-2 border-custom-purple w-full mx-20'/>
               <ProposalItem proposal={listItem}/>
-            </>
+            </React.Fragment>
           ))
         }
       </div>

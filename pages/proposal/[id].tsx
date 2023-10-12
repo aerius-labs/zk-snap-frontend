@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ProposalPageBar from '@/components/ProposalPageBar';
 import Vote from '@/components/Vote';
+import Slider from '@/components/Slider';
 export default function Proposal() {
     const proposalDetail = {
         communityName:'Aave by OxF92F...37B4',
@@ -58,10 +59,8 @@ export default function Proposal() {
                     </div>
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
-                    {/* <button className='text-lg w-full p-4 rounded-xl bg-green-500 flex justify-center items-center'>
-                        VOTE
-                    </button> */}
                     <Vote />
+                    <Slider/>
                 </div>
             </div>
         </main>
