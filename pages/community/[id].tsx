@@ -75,9 +75,9 @@ export default function Community() {
         <CommunityPageBar />
         <div className='flex z-10 flex-wrap justify-center items-center'>
             {
-                list.map((listItem) => (
-                    <>
-                        <div key={listItem.accountAddress} className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
+                list.map((listItem, idx) => (
+                    <div key={idx}>
+                        <div className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
                             <svg className="absolute top-0 left-0 z-10 w-full h-full hidden md:block" viewBox="0 0 1100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.78516 65.5738V44.3895L31.8782 3.15088H1008.64L1036.61 44.3895V65.5738M2.78531 133.778V154.962L31.8784 196.201H1008.64L1036.61 154.962V133.778" stroke="#A55FFD" strokeWidth="5.31252"/>
                                 <g filter="url(#filter0_b_62_467)">
@@ -104,7 +104,7 @@ export default function Community() {
                                 </div>
                             </Link>
                         </div>
-                    </>
+                    </div>
                 ))
             }
         </div>
