@@ -93,6 +93,7 @@ function Dropdown() {
                         </li>
                         {dropDownList.map((item)=>(
                             <li 
+                                key={item.name}
                                 className="cursor-pointer text-gray-100 hover:bg-gray-900 px-4 py-2"
                                 onClick={() => handleOptionClick(item.value)}
                             >
