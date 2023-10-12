@@ -34,7 +34,7 @@ function ProposalItem({proposal}:any) {
                         {proposal.quorumReached!==undefined &&
                             <p
                                 style={{ background: `linear-gradient(to right, #A55FFD ${proposal.quorumReached}%, transparent ${proposal.quorumReached}%, transparent 100%)`}}
-                                className='text-gray-200 border border-gray-900 rounded-full flex items-center mt-2 px-2 text-xs'
+                                className='text-gray-200 border border-gray-600 rounded-full flex items-center mt-2 px-2 text-xs'
                             >
                                 {proposal.quorumReached}% quorum reached
                             </p>

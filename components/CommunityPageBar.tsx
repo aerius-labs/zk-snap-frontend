@@ -5,7 +5,7 @@ import Link from 'next/link';
 function CommunityPageBar() {
     return (
     <div className="w-full">
-    <div className='flex items-center mb-4 flex-row flex-wrap px-20 gap-4 justify-between'>
+    <div className='md:mt-0 mt-4 flex items-center justify-center mb-4 flex-row flex-wrap px-20 gap-4 md:justify-between'>
         
         <div className='flex gap-3 text-xs'>
             <Link href='/'>
@@ -19,7 +19,7 @@ function CommunityPageBar() {
         </div>
         
         {/* New Button in the middle */}
-        <button className='text-gray-100 text-xs border-custom-purple border px-1 mr-10 rounded-2xl'>
+        <button className='text-gray-100 text-xs border-custom-purple border px-2 py-1 mr-10 rounded-2xl'>
             JOIN
         </button>
 
