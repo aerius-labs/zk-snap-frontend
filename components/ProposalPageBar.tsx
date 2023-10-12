@@ -14,7 +14,7 @@ function ProposalPageBar() {
             </Link>
         </div>
         <div className='flex gap-4 text-xs'>
-            <Link href={`/info/1`}>
+            <Link href={`/proposal/1`}>
                 <button className="text-gray-400 border border-custom-purple rounded-full px-1">INFO</button>
             </Link>
             <Link href={`/discussion/1`}>

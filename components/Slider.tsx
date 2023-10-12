@@ -32,7 +32,7 @@ export function Slide1() {
     return (
       <div className="flex flex-col items-center space-y-4">
         {/* BASIC INFO */}
-        <div className="h-32 px-4 py-2 w-full border border-custom-purple rounded-md">
+        <div className="h-40 md:h-32 px-4 py-2 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p>BASIC INFO</p>
             </div>
@@ -41,7 +41,7 @@ export function Slide1() {
         </div>
 
         {/* TIMELINE DETAILS */}
-        <div className="h-40 px-4 w-full border border-custom-purple rounded-md">
+        <div className="h-52 md:h-40 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p>TIMELINE</p>
             </div>
@@ -51,7 +51,7 @@ export function Slide1() {
         </div>
 
         {/* RESULTS */}
-        <div className="h-24 px-4 w-full border border-custom-purple rounded-md">
+        <div className="h-28 md:h-24 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p>RESULTS</p>
             </div>
@@ -74,7 +74,7 @@ export function Slide2() {
         </div>
 
         {/* SUBMISSIONS */}
-        <div className="h-40 px-4 w-full border border-custom-purple rounded-md">
+        <div className="h-48 md:h-40 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p>SUBMISSIONS</p>
             </div>

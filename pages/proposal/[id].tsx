@@ -36,7 +36,7 @@ export default function Proposal() {
                         {proposalDetail.quorumReached!==undefined &&
                             <p
                                 style={{ background: `linear-gradient(to right, #A55FFD ${proposalDetail.quorumReached}%, transparent ${proposalDetail.quorumReached}%, transparent 100%)`}}
-                                className='text-gray-200 border border-gray-900 rounded-full flex items-center mt-2 px-2 text-xs'
+                                className='text-gray-200 border border-gray-600 rounded-full flex items-center mt-2 px-2 text-xs'
                             >
                                 {proposalDetail.quorumReached}% quorum reached
                             </p>
