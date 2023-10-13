@@ -1,6 +1,4 @@
-import ProposalItem from '@/components/Proposal';
 import Image from 'next/image';
-import Link from 'next/link';
 import ProposalPageBar from '@/components/ProposalPageBar';
 import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';

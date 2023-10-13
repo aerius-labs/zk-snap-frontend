@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image';
 import ProposalPageBar from '@/components/ProposalPageBar';
 import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
