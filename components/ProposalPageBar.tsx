@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Dropdown from '@/components/DropDown';
 import Link from 'next/link';
+import { useRouter } from "next/router";
 
 function ProposalPageBar() {
+    const router = useRouter();
     return (
     <div className="w-full mt-4">
     <div className='flex items-center mb-4 flex-row flex-wrap gap-4 justify-between'>
@@ -15,10 +17,10 @@ function ProposalPageBar() {
         </div>
         <div className='flex gap-4 text-xs'>
             <Link href={`/proposal/1`}>
-                <button className="text-gray-400 border border-custom-purple rounded-full px-1">INFO</button>
+                <button className={`${router.pathname.startsWith('/proposal') ? 'bg-custom-purple' : ''} text-gray-200 border border-custom-purple rounded-full px-2 py-1`}>INFO</button>
             </Link>
             <Link href={`/discussion/1`}>
-                <button className="text-gray-400 border border-custom-purple rounded-full px-1">DISCUSSIONS</button>
+                <button className={`text-gray-200 border border-custom-purple rounded-full px-2 py-1 ${router.pathname.startsWith('/discussion') ? 'bg-custom-purple' : ''}`}>DISCUSSIONS</button>
             </Link>
         </div>
     </div>
