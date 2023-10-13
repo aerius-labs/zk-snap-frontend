@@ -93,7 +93,7 @@ export default function Community() {
                                 </defs>
                             </svg>
                             <Link href={`/proposal/${listItem.proposalId}`}>
-                                <div className="relative z-20 flex flex-col justify-center">
+                                <div className="p-4 md:p-0 relative z-20 mt-7 flex flex-col justify-center">
                                     <div className='flex gap-2 items-center font-good-times mb-1 text-sm md:text-lg text-gray-200 mx-4 md:mx-20 mt-8 md:mt-8'>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 18 16" fill="none">
                                             <circle cx="8.979" cy="9.5" r="8.66406" fill="#D9D9D9"/>

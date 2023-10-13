@@ -3,7 +3,7 @@ import Image from 'next/image';
 function CommunityBlock({community}: any) {
     return (
         <div className="relative hover:cursor-pointer group">
-            <div className="group-hover:blur-[5px] transition duration-300 ease-in-out">
+            <div className="group-hover:blur-[2px] transition duration-300 ease-in-out">
                 {/* svg image of community border */}
                 <svg xmlns="http://www.w3.org/2000/svg" width="241" height="165" viewBox="0 0 241 165" fill="none">
                     <path d="M3.28516 65.574V44.3898L32.3782 3.15112H209.479L237.442 44.3898V65.574" stroke="#A55FFD" strokeWidth="5.31252"/>
