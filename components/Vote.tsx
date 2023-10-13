@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 export default function Vote() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeButton, setActiveButton] = useState('');

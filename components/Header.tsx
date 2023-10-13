@@ -1,4 +1,3 @@
-import Image from "next/image";
 function Header() {
     return (
         <div className="w-full sticky top-0 bg-black backdrop-blur-md z-40">

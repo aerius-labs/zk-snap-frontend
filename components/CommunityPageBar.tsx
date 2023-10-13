@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Dropdown from '@/components/DropDown';
 import Link from 'next/link';
 
