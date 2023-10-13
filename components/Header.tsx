@@ -1,7 +1,7 @@
 import Image from "next/image";
 function Header() {
     return (
-        <div className="w-full sticky top-0">
+        <div className="w-full sticky top-0 bg-black backdrop-blur-md z-40">
             <section className="flex justify-center items-center p-4">
                 {/* zk-snap logo of header */}
                 <svg className="flex-grow ml-24 text-center" xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 56" fill="none">
