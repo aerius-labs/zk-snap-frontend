@@ -15,7 +15,7 @@ function ProposalPageBar() {
                 </svg>
             </Link>
         </div>
-        <div className='flex gap-4 text-xs'>
+        <div className='flex gap-4 text-xs font-good-times'>
             <Link href={`/proposal/1`}>
                 <button className={`${router.pathname.startsWith('/proposal') ? 'bg-custom-purple' : ''} text-gray-200 border border-custom-purple rounded-full px-2 py-1`}>INFO</button>
             </Link>

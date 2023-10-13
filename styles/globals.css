@@ -28,7 +28,7 @@ body {
 
 @font-face {
   font-family: 'Good Times';
-  src: url('../public/fonts/goodtimes.ttf') format('truetype');
-  font-weight: normal;
+  src: url('/fonts/good-times.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
 }

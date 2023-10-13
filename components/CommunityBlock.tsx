@@ -22,8 +22,8 @@ function CommunityBlock({community}: any) {
             {/* Community name and members count showing under the community on home screen */}
             <div className="absolute bottom-1/3 -mb-4 left-1/3 -ml-6 items-center flex flex-col ">
                 <Image src='/Logo.png' width={50} height={50} alt="Community Logo"/>
-                <p className='text-gray-100'>{community?.name}</p>
-                <p className='text-gray-700'>{community?.members}</p>
+                <p className='text-gray-100 mt-1 font-good-times'>{community?.name}</p>
+                <p className='text-gray-700 font-good-times'>{community?.members}</p>
             </div>
         </div>
     );

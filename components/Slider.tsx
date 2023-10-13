@@ -34,7 +34,7 @@ export function Slide1() {
         {/* BASIC INFO */}
         <div className="h-40 md:h-32 px-4 py-2 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
-              <p>BASIC INFO</p>
+              <p className='font-good-times'>BASIC INFO</p>
             </div>
             <ShowInfo property={'IPFS'} value={'#hetkyiv'}/>
             <ShowInfo property={'Voting system'} value={'Single choice voting'}/>
@@ -43,7 +43,7 @@ export function Slide1() {
         {/* TIMELINE DETAILS */}
         <div className="h-52 md:h-40 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
-              <p>TIMELINE</p>
+              <p className='font-good-times'>TIMELINE</p>
             </div>
             <ShowInfo property={'Submissions open:'} value={'Sep 17, 2023, 1:05 AM'}/>
             <ShowInfo property={'Submissions close/voting opens:'} value={'Sep 20, 2023, 1:05 AM'}/>
@@ -53,7 +53,7 @@ export function Slide1() {
         {/* RESULTS */}
         <div className="h-28 md:h-24 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
-              <p>RESULTS</p>
+              <p className='font-good-times'>RESULTS</p>
             </div>
             <ShowInfo property={'To be declared on:'} value={'Sep 25, 2023, 1:05 AM'}/>
         </div>
@@ -67,7 +67,7 @@ export function Slide2() {
         {/* REWARDS */}
         <div className="h-32 px-4 py-2 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
-              <p>REWARDS</p>
+              <p className='font-good-times'>REWARDS</p>
             </div>
             <ShowInfo property={'1st place'} value={'80% of rewards'}/>
             <ShowInfo property={'2nd place'} value={'20% of rewards'}/>
@@ -76,7 +76,7 @@ export function Slide2() {
         {/* SUBMISSIONS */}
         <div className="h-48 md:h-40 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
-              <p>SUBMISSIONS</p>
+              <p className='font-good-times'>SUBMISSIONS</p>
             </div>
             <div className='flex flex-col gap-3 text-xs mt-2'>
               <p>Qualified wallets can enter a max of 1 submission</p>
@@ -88,7 +88,7 @@ export function Slide2() {
         {/* VOTING */}
         <div className="h-32 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
-              <p>VOTING</p>
+              <p className='font-good-times'>VOTING</p>
             </div>
             <ul className='flex flex-col gap-3 text-xs mt-2'>
               <li>Connect wallet to see if you qualift</li>

@@ -17,7 +17,7 @@ const config: Config = {
         'custom-purple':'#A55FFD',
       },
       fontFamily: {
-        'good-times': ['"Good Times"', 'sans'],
+        'good-times': ['Good Times', 'sans'],
       },
     },
   },

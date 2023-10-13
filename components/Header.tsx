@@ -38,7 +38,7 @@ function Header() {
                     </defs>
                 </svg>
                 {/* Connect Wallet Functionality in header */}
-                <button className="ml-auto text-xs font-good-times text-gray-200 border p-2 rounded-3xl border-custom-purple" style={{fontFamily:'sans-serif'}}>CONNECT WALLET</button>
+                <button className="ml-auto text-xs text-gray-200 border p-2 rounded-3xl border-custom-purple font-good-times">CONNECT WALLET</button>
             </section>
             <hr className="border-t border-custom-purple m-0" />
         </div>
