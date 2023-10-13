@@ -12,12 +12,12 @@ function ProposalItem({proposal}:any) {
                 </div> : null}
                 <div className='w-3/4'>
                     {/* Rendered only on mobile (width < 640px by default in Tailwind) */}
-                    <h6 className='text-gray-200 leading-none mb-1 text-sm sm:hidden ml-4'>
+                    <h6 className='text-gray-200 leading-none mb-1 text-sm sm:hidden ml-4 font-good-times'>
                         {proposal.title.length > 30 ? `${proposal.title.slice(0, 40)}...` : proposal.title}
                     </h6>
 
                     {/* Rendered only on screens >= md size (width >= 768px by default in Tailwind) */}
-                    <h6 className='text-gray-200 leading-none mb-1 text-lg hidden md:block'>
+                    <h6 className='text-gray-200 leading-none mb-1 text-lg hidden md:block font-good-times'>
                         {proposal.title.length > 150 ? `${proposal.title.slice(0, 150)}...` : proposal.title}
                     </h6>
                     <p className='text-gray-200 text-sm leading-snug hidden md:block'>
@@ -43,11 +43,11 @@ function ProposalItem({proposal}:any) {
                 </div>
                 {proposal.winningAmount ?
                     <div className='ml-auto text-gray-300 px-6 mr-6'>
-                        <p className='text-sm md:text-xl'>{proposal.winningAmount}</p>
-                        <p className='text-xs md:text-sm'>to {proposal.winnerCount} winners</p>
+                        <p className='text-sm md:text-xl font-good-times'>{proposal.winningAmount}</p>
+                        <p className='text-xs md:text-sm font-good-times'>to {proposal.winnerCount} winners</p>
                     </div> : 
                     <div className='ml-auto mr-5 text-gray-500'>
-                        <p className='text-xl'>NO REWARDS</p>
+                        <p className='text-xl font-good-times'>NO REWARDS</p>
                     </div>
                 }
             </div>
