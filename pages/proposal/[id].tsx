@@ -26,7 +26,7 @@ export default function Proposal() {
                         <p className='font-good-times'>{proposalDetail.communityName}</p>
                     </div>
                     <div className='pt-4 text-3xl font-good-times'>{proposalDetail.title}</div>
-                    <div className='flex gap-2 ml-4 md:ml-0'>
+                    <div className='flex gap-2 flex-col md:flex-row md:ml-0'>
                         <p className={`text-gray-200 border font-bold rounded-full flex items-center mt-2 px-2 text-xs ${proposalDetail.endsIn!=='Ended'? 'bg-green-500 border-green-500 text-black':'bg-gray-600 text-gray-200 border-gray-600'}`}>
                             {
                                 proposalDetail.endsIn!=='Ended' ? 
