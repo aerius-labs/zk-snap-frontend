@@ -25,3 +25,10 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@font-face {
+  font-family: 'Good Times';
+  src: url('../public/fonts/goodtimes.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

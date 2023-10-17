@@ -1,6 +1,11 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import Header from '@/components/Header';
+export default function App({ Component, pageProps }: AppProps) { 
+  return (
+    <div className='bg-black'>
+      <Header/>
+      <Component {...pageProps} />
+    </div>
+  )
 }

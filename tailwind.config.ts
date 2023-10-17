@@ -13,6 +13,12 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        'custom-purple':'#A55FFD',
+      },
+      fontFamily: {
+        'good-times': ['"Good Times"', 'sans'],
+      },
     },
   },
   plugins: [],
