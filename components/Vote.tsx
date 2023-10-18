@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ProofGenerator from './ProofGenerator';
 
 export default function Vote() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -28,7 +29,7 @@ export default function Vote() {
       {isModalOpen && (
         <div id="modal" onClick={handleOutsideClick} className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-black border border-custom-purple w-3/4 md:w-1/4 flex flex-col justify-center rounded-lg py-8 px-10 text-center">
-            <p onClick={handleVote} className={`block cursor-pointer mb-4 p-2 border-b border-gray-200 text-lg tracking-wider ${activeButton!=='' ?'bg-green-500 rounded-lg border-b-0 text-gray-300': 'text-gray-500'}`}>VOTE</p>
+            <p onClick={handleVote} className={`block cursor-pointer mb-4 p-2 border-b border-gray-200 text-lg tracking-wider ${activeButton!=='' ?'bg-green-500 rounded-lg border-b-0 text-gray-300': 'text-gray-500'}`}><ProofGenerator /></p>
             <button
                 onClick={() => handleOptionClick('FOR')}
                 className={`block mb-4 font-good-times cursor-pointer p-2 border-b border-custom-purple text-gray-500 rounded-md ${activeButton === 'FOR' ? 'text-white bg-custom-purple' : ''}`}

@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from 'react';
 function Dropdown() {
     const [isOpen, setIsOpen] = useState(false); // to toggle dropdown
     const [selectedOption, setSelectedOption] = useState('CATEGORY'); // show the selected option
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    
     const dropDownList = [
         {
             name:'ALL',
