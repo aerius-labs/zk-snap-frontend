@@ -4,19 +4,49 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import { GetServerSideProps } from 'next';
 
-export default function Proposal() {
+export default function Proposal({id}:any) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [startTime, setStartTime] = useState('Set Start Time');
-  const [endTime, setEndTime] = useState('Set End Time');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
 
-  const handleSubmit = (e) => {
+  function combineDateTime(date, time) {
+    const timeDate = new Date(time);
+    date.setHours(timeDate.getHours());
+    date.setMinutes(timeDate.getMinutes());
+    date.setSeconds(timeDate.getSeconds());
+    date.setMilliseconds(timeDate.getMilliseconds());
+    // Convert to the desired format
+    return date.toISOString();
+  }
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const start_time = combineDateTime(startDate, startTime);
+    const end_time = combineDateTime(endDate, endTime);
     // Handle form submission logic here
-    console.log({ title, description, startDate, endDate, startTime, endTime });
+    const response = await fetch('http://localhost:3001/api/postProposal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            title: title,
+            description: description,
+            dao_id: id,
+            start_time: start_time,
+            end_time: end_time,
+            creator: "a"
+        }),
+      });
+  
+      const result = await response.json();
+      console.log(result);
+      console.log({ title, description, startDate, endDate, startTime, endTime });
   };
 
   return (
@@ -59,6 +89,7 @@ export default function Proposal() {
                     dateFormat={false}
                     value={startTime}
                     onChange={setStartTime}
+                    inputProps={{ placeholder: 'Select Start Time' }}
                 />
             </div>
             <div className="w-full">
@@ -66,6 +97,7 @@ export default function Proposal() {
                     dateFormat={false}
                     value={endTime} 
                     onChange={setEndTime}
+                    inputProps={{ placeholder: 'Select End Time' }}
                 />
             </div>
             <div>
@@ -75,3 +107,17 @@ export default function Proposal() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const id = context.params?.id;
+    if (!id) {
+      return {
+        notFound: true
+      };
+    }
+    return {
+      props: {
+        id
+      }
+    };
+};

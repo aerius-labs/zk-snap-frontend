@@ -2,7 +2,9 @@ import ProposalItem from '@/components/Proposal';
 import Image from 'next/image';
 import CommunityPageBar from '@/components/CommunityPageBar';
 import Link from 'next/link';
-export default function Community() {
+import { GetServerSideProps } from 'next';
+
+export default function Community({ id }) {
     // community proposal list
     const list = [
         {
@@ -72,7 +74,7 @@ export default function Community() {
             </div>
             <p className='text-gray-600 text-lg -ml-3 font-good-times'>837K MEMBERS</p>
         </div>
-        <CommunityPageBar community_id={'725b3ff5-38ef-4329-8e27-3673be6d9252'}/>
+        <CommunityPageBar community_id={id}/>
         <div className='flex z-10 flex-wrap justify-center items-center'>
             {
                 list.map((listItem, idx) => (
@@ -112,3 +114,19 @@ export default function Community() {
     </main>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const id = context.params?.id;
+    // You can now use the id for fetching data or any other server-side operations
+    if (!id) {
+        return {
+          notFound: true
+        };
+    }
+    return {
+      props: {
+        id
+      }
+    };
+  };
+  
