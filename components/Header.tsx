@@ -1,3 +1,5 @@
+import AuroConnect from "./AuroConnect";
+
 function Header() {
     return (
         <div className="w-full sticky top-0 bg-black backdrop-blur-md z-40">
@@ -37,7 +39,9 @@ function Header() {
                     </defs>
                 </svg>
                 {/* Connect Wallet Functionality in header */}
-                <button className="ml-auto text-xs text-gray-200 border p-2 rounded-3xl border-custom-purple font-good-times">CONNECT WALLET</button>
+                <div className="ml-auto">
+                    <AuroConnect />
+                </div>
             </section>
             <hr className="border-t border-custom-purple m-0" />
         </div>
