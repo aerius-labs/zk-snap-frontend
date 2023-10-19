@@ -14,7 +14,7 @@ export default function Home({daos}:any) {
         {
           daos.map((listItem: any, idx: number) => (
             <Link key={idx} href={`/community/${listItem.id}`}>
-              <CommunityBlock key={listItem._id} community={listItem}/>
+              <CommunityBlock key={listItem.id} community={listItem}/>
             </Link>
           ))
         }
