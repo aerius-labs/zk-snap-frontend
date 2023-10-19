@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className='bg-black'>
       <Header/>
       <Component {...pageProps} />
-      <ProofGenerator />
+      {/* <ProofGenerator /> */}
     </div>
   )
 }

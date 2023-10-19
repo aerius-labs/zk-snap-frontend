@@ -72,7 +72,7 @@ export default function Community() {
             </div>
             <p className='text-gray-600 text-lg -ml-3 font-good-times'>837K MEMBERS</p>
         </div>
-        <CommunityPageBar />
+        <CommunityPageBar community_id={'725b3ff5-38ef-4329-8e27-3673be6d9252'}/>
         <div className='flex z-10 flex-wrap justify-center items-center'>
             {
                 list.map((listItem, idx) => (
