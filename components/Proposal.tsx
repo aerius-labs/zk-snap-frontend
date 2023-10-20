@@ -1,5 +1,5 @@
 import Image from 'next/image';
-
+import { getTimeDifference } from '@/utils/helperFunctions';
 function ProposalItem({proposal}:any) {
     return (
         <div className="w-full">
@@ -25,8 +25,7 @@ function ProposalItem({proposal}:any) {
                     <div className={`flex flex-col md:flex-row gap-2 ml-4 md:ml-0`}>
                         <p className={`text-gray-200 border font-bold rounded-full flex items-center mt-2 px-2 text-xs ${proposal.endsIn!=='Ended'? 'bg-green-500 border-green-500 text-black':'bg-gray-600 text-gray-200 border-gray-600'}`}>
                             {
-                                proposal.endsIn!=='Ended' ? 
-                                    `Ends in ${proposal.endsIn}` : 'Ended'
+                                `${getTimeDifference(proposal.end_time)}`
                             }
                         </p>
                         {proposal.quorumReached!==undefined &&
