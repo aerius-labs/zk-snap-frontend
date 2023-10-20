@@ -3,7 +3,9 @@ import ProposalPageBar from '@/components/ProposalPageBar';
 import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
 import DiscussionItem from '@/components/Discussion';
-export default function Proposals() {
+import { GetServerSideProps } from 'next';
+
+export default function Discussions({id}:any) {
   const discussions = [
     {
       logo: '/Logo.png',
@@ -27,7 +29,7 @@ export default function Proposals() {
         >
             <div className='flex flex-col md:flex-row gap-12 mt-12'>
                 <div className='text-gray-200 w-full md:w-3/4'>
-                    <ProposalPageBar id={'a79ee875-971e-4105-8c46-4caf75a9d0e0'} />
+                    <ProposalPageBar id={id} />
                     {
                         discussions.map((discussion, idx)=>(
                             <React.Fragment key={idx}>
@@ -44,3 +46,17 @@ export default function Proposals() {
         </main>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const id = context.params?.id;
+    if (!id) {
+        return {
+          notFound: true
+        };
+    }
+    return {
+      props: {
+        id
+      }
+    };
+};
