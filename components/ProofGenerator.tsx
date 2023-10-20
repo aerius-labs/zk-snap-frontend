@@ -1,8 +1,6 @@
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
-import { generateUserProof } from '@/dist/src/main';
-
-export default function ProofGenerator() {
+export default function ProofGenerator({workerInstance, setWorker, handleVote}:any) {
   const userData = {
     userPublicKey: "B62qjrPjQLNGmNsshUVHTt6FLexY4Hesz3dwQ7hHwv8D6PsZyEiVQnd",
     userSignatureStr: {
@@ -75,9 +73,10 @@ export default function ProofGenerator() {
         memberProofStr: JSON.stringify(userData.membersProofStr)
       };
       console.log('Prepared Data', inputData)
-      generateUserProof(inputData).then((res)=>{
-        console.log("User Proof :", res);
-      })
+      if (workerInstance.current) {
+        console.log('Inside workerInstance');
+        workerInstance.current.postMessage(inputData);
+      }
     } catch (error) {
         console.error("Error generating proof:", error);
     }
@@ -86,8 +85,9 @@ export default function ProofGenerator() {
     <main
       className={`items-center justify-center ${inter.className}`}
     >
-      <button className='text-gray-200' onClick={() => {
+      <button className='block w-full mb-4 font-good-times cursor-pointer p-2 border-b border-custom-purple text-gray-500 rounded-md' onClick={() => {
         if (typeof window !== 'undefined') {
+          handleVote();
           handleButtonClick();
         }
       }}>Vote</button>

@@ -23,11 +23,13 @@ const nextConfig = {
 
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      // Push the worker-loader configuration
       config.module.rules.push({
         test: /\.worker\.js$/,
         loader: 'worker-loader',
         options: {
-          publicPath: '/_next/static/workers/',
+          inline: 'fallback',
+          publicPath: '/_next/static/workers/', // This is from your previous config
         },
       });
     }
