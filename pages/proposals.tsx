@@ -1,36 +1,7 @@
 import React from 'react'
 import ProposalItem from '@/components/Proposal';
 import HomePageBar from '@/components/HomePageBar';
-export default function Proposals() {
-  const list = [
-    {
-      logo: '/Logo.png',
-      title:'LOREM IPSUM DOLOR SIT AMETC.....',
-      description: 'Brief info about the proposal',
-      endsIn: '16 hours',
-      quorumReached: 34.21,
-      winningAmount: '0.03 ETH',
-      winnerCount: '5'
-    },
-    {
-        logo: '/Logo.png',
-        title:'LOREM IPSUM DOLOR SIT AMETC.....',
-        description: 'Brief info about the proposal',
-        endsIn: '16 hours',
-        quorumReached: 87.56,
-        winningAmount: '0.015 AVAX',
-        winnerCount: '3'
-    },
-    {
-        logo: '/Logo.png',
-        title:'LOREM IPSUM DOLOR SIT AMETC.....',
-        description: 'Brief info about the proposal',
-        endsIn: 'Ended',
-        quorumReached: undefined,
-        winningAmount: '0.08 DOGE',
-        winnerCount: '1'
-    }
-  ];
+export default function Proposals({proposals}:any) {
   return (
     <main
       className={`min-h-screen items-center justify-center py-12`}
@@ -38,7 +9,7 @@ export default function Proposals() {
       <HomePageBar />
       <div className='flex z-10 gap-8 flex-wrap justify-center items-center'>
         {
-          list.map((listItem, idx) => (
+          proposals.map((listItem:any, idx:any) => (
             <React.Fragment key={idx}>
               <hr className='border-2 border-custom-purple w-full mx-20'/>
               <ProposalItem proposal={listItem}/>
@@ -48,4 +19,13 @@ export default function Proposals() {
       </div>
     </main>
   )
+}
+export async function getServerSideProps() {
+  const response = await fetch('http://localhost:3001/api/getAllProposals');
+  const proposals = await response.json();
+  return {
+    props: {
+      proposals
+    }
+  };
 }
