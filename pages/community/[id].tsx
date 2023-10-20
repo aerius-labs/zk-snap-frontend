@@ -1,10 +1,13 @@
 import ProposalItem from '@/components/Proposal';
 import Image from 'next/image';
 import CommunityPageBar from '@/components/CommunityPageBar';
+import Link from 'next/link';
 export default function Community() {
     // community proposal list
     const list = [
         {
+            communityId:'1',
+            proposalId:'1',
             accountAddress: '0xF92F...3784',
             title:'Domain Allocator Election for the New Protocol Ideas Domain',
             description: 'Introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......',
@@ -14,6 +17,8 @@ export default function Community() {
             winnerCount: '5'
         },
         {
+            communityId:'1',
+            proposalId:'2',
             accountAddress: '0xF92F...3784',
             title:'Domain Allocator Election for the New Protocol Ideas Domain',
             description: 'Introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......',
@@ -22,24 +27,28 @@ export default function Community() {
             winningAmount: '0.015 AVAX',
             winnerCount: '3'
         },
-        // {
-        //     accountAddress: '0xF92F...3784',
-        //     title:'Domain Allocator Election for the New Protocol Ideas Domain',
-        //     description: 'Introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......',
-        //     endsIn: 'Ended',
-        //     quorumReached: undefined,
-        //     winningAmount: '0.08 DOGE',
-        //     winnerCount: '1'
-        // },
-        // {
-        //     accountAddress: '0xF92F...3784',
-        //     title:'Domain Allocator Election for the New Protocol Ideas Domain',
-        //     description: 'Introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......',
-        //     endsIn: 'Ended',
-        //     quorumReached: 21.21,
-        //     winningAmount: undefined,
-        //     winnerCount: undefined
-        // }
+        {
+            communityId:'1',
+            proposalId:'3',
+            accountAddress: '0xF92F...3784',
+            title:'Domain Allocator Election for the New Protocol Ideas Domain',
+            description: 'Introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......',
+            endsIn: 'Ended',
+            quorumReached: undefined,
+            winningAmount: '0.08 DOGE',
+            winnerCount: '1'
+        },
+        {
+            communityId:'1',
+            proposalId:'4',
+            accountAddress: '0xF92F...3784',
+            title:'Domain Allocator Election for the New Protocol Ideas Domain',
+            description: 'Introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua......',
+            endsIn: 'Ended',
+            quorumReached: 21.21,
+            winningAmount: undefined,
+            winnerCount: undefined
+        }
     ];
   return (
     <main
@@ -66,9 +75,9 @@ export default function Community() {
         <CommunityPageBar />
         <div className='flex z-10 flex-wrap justify-center items-center'>
             {
-                list.map((listItem) => (
-                    <>
-                        <div key={listItem.accountAddress} className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
+                list.map((listItem, idx) => (
+                    <div key={idx}>
+                        <div className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
                             <svg className="absolute top-0 left-0 z-10 w-full h-full hidden md:block" viewBox="0 0 1100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.78516 65.5738V44.3895L31.8782 3.15088H1008.64L1036.61 44.3895V65.5738M2.78531 133.778V154.962L31.8784 196.201H1008.64L1036.61 154.962V133.778" stroke="#A55FFD" strokeWidth="5.31252"/>
                                 <g filter="url(#filter0_b_62_467)">
@@ -83,17 +92,19 @@ export default function Community() {
                                 </filter>
                                 </defs>
                             </svg>
-                            <div className="relative z-20 flex flex-col justify-center">
-                                <div className='flex gap-2 items-center mb-1 text-sm md:text-lg text-gray-200 mx-4 md:mx-20 mt-8 md:mt-8'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 18 16" fill="none">
-                                        <circle cx="8.979" cy="9.5" r="8.66406" fill="#D9D9D9"/>
-                                    </svg>
-                                    {listItem.accountAddress}
+                            <Link href={`/proposal/${listItem.proposalId}`}>
+                                <div className="relative z-20 flex flex-col justify-center">
+                                    <div className='flex gap-2 items-center mb-1 text-sm md:text-lg text-gray-200 mx-4 md:mx-20 mt-8 md:mt-8'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 18 16" fill="none">
+                                            <circle cx="8.979" cy="9.5" r="8.66406" fill="#D9D9D9"/>
+                                        </svg>
+                                        {listItem.accountAddress}
+                                    </div>
+                                    <ProposalItem proposal={listItem}/>
                                 </div>
-                                <ProposalItem proposal={listItem}/>
-                            </div>
+                            </Link>
                         </div>
-                    </>
+                    </div>
                 ))
             }
         </div>

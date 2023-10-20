@@ -70,8 +70,8 @@ export default function Home() {
       <HomePageBar />
       <div className='flex z-10 gap-8 flex-wrap justify-center items-center'>
         {
-          list.map((listItem) => (
-            <Link href={`/community/${listItem.id}`}>
+          list.map((listItem, idx) => (
+            <Link key={idx} href={`/community/${listItem.id}`}>
               <CommunityBlock key={listItem.name} community={listItem}/>
             </Link>
           ))
