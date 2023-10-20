@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from "next/router";
 
-function ProposalPageBar() {
+function ProposalPageBar({id}:any) {
     const router = useRouter();
     return (
     <div className="w-full mt-4">
@@ -14,10 +14,10 @@ function ProposalPageBar() {
             </Link>
         </div>
         <div className='flex gap-4 text-xs font-good-times'>
-            <Link href={`/proposal/1`}>
+            <Link href={`/proposal/${id}`}>
                 <button className={`${router.pathname.startsWith('/proposal') ? 'bg-custom-purple' : ''} text-gray-200 border border-custom-purple rounded-full px-2 py-1`}>INFO</button>
             </Link>
-            <Link href={`/discussion/1`}>
+            <Link href={`/discussion/${id}`}>
                 <button className={`text-gray-200 border border-custom-purple rounded-full px-2 py-1 ${router.pathname.startsWith('/discussion') ? 'bg-custom-purple' : ''}`}>DISCUSSIONS</button>
             </Link>
         </div>

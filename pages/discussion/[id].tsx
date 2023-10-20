@@ -27,7 +27,7 @@ export default function Proposals() {
         >
             <div className='flex flex-col md:flex-row gap-12 mt-12'>
                 <div className='text-gray-200 w-full md:w-3/4'>
-                    <ProposalPageBar />
+                    <ProposalPageBar id={'a79ee875-971e-4105-8c46-4caf75a9d0e0'} />
                     {
                         discussions.map((discussion, idx)=>(
                             <React.Fragment key={idx}>
