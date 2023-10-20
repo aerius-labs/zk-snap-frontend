@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { formatDate } from '@/utils/helperFunctions';
 
-export default function Slider() {
+export default function Slider({startTime, endTime}: any) {
   const [activeSlide, setActiveSlide] = useState(1);
   return (
     <div className="">
@@ -20,7 +21,7 @@ export default function Slider() {
       </div>
 
       <div>
-        {activeSlide === 1 && <Slide1 />}
+        {activeSlide === 1 && <Slide1 startTime={formatDate(startTime)} endTime={formatDate(endTime)} />}
         {activeSlide === 2 && <Slide2 />}
       </div>
     </div>
@@ -28,7 +29,7 @@ export default function Slider() {
 }
 
 
-export function Slide1() {
+export function Slide1({startTime, endTime}:any) {
     return (
       <div className="flex flex-col items-center space-y-4">
         {/* BASIC INFO */}
@@ -41,13 +42,12 @@ export function Slide1() {
         </div>
 
         {/* TIMELINE DETAILS */}
-        <div className="h-52 md:h-40 px-4 w-full border border-custom-purple rounded-md">
+        <div className="h-36 md:h-32 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>TIMELINE</p>
             </div>
-            <ShowInfo property={'Submissions open:'} value={'Sep 17, 2023, 1:05 AM'}/>
-            <ShowInfo property={'Submissions close/voting opens:'} value={'Sep 20, 2023, 1:05 AM'}/>
-            <ShowInfo property={'Voting closes:'} value={'Sep 22, 2023, 1:05 AM'}/>
+            <ShowInfo property={'Voting open:'} value={startTime}/>
+            <ShowInfo property={'Voting close:'} value={endTime}/>
         </div>
 
         {/* RESULTS */}

@@ -27,3 +27,18 @@ export function getTimeDifference(targetTime: any) {
       return "Ends in Less than a minute";
     }
 }
+
+export function formatDate(inputDateStr: any) {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: '2-digit',
+  };
+
+  const date = new Date(inputDateStr);
+  const formattedDate = date.toLocaleString('en-US', options);
+
+  return formattedDate.replace(/,/g, ''); // Removes the comma after the day
+}

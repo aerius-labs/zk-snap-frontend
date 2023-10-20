@@ -17,7 +17,7 @@ export default function Proposal({id, proposalDetails}:any) {
                     <ProposalPageBar id={id} />
                     <div className='flex items-center gap-3 text-lg'>
                         <Image src={'/community_logo.png'} alt='Community Logo' width={30} height={30} />
-                        <p className='font-good-times'>{proposalDetail.communityName} by {proposalDetails.creator.slice(0,5) + '...' + proposalDetails.creator.slice(-5)}</p>
+                        <p className='font-good-times'>{proposalDetails.daoName} by {proposalDetails.creatorID.slice(0,5) + '...' + proposalDetails.creatorID.slice(-5)}</p>
                     </div>
                     <div className='pt-4 text-3xl font-good-times'>{proposalDetails.title}</div>
                     <div className='flex gap-2 flex-col md:flex-row md:ml-0'>
@@ -43,7 +43,7 @@ export default function Proposal({id, proposalDetails}:any) {
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
                     <Vote />
-                    <Slider/>
+                    <Slider startTime = {proposalDetails.start_time} endTime = {proposalDetails.end_time}/>
                 </div>
             </div>
         </main>
