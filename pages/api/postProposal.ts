@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     const proposalData = req.body; // Data sent in the POST request
-    const response = await fetch('http://localhost:3000/proposal', {
+    const response = await fetch('http://localhost:3000/dao/proposal', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

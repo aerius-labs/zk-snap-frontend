@@ -40,7 +40,7 @@ export default function Proposal({id}:any) {
             dao_id: id,
             start_time: start_time,
             end_time: end_time,
-            creator: "a"
+            creator: "B62qqN8ErUKLx7EhvgMBRQK56AyQborFFnVkjXjvmS679Qwor7b4QE8"
         }),
       });
   
@@ -50,7 +50,7 @@ export default function Proposal({id}:any) {
   };
 
   return (
-    <div className='min-h-screen flex justify-center items-center text-gray-200'>
+    <div className='min-h-screen flex justify-center items-center'>
         <form onSubmit={handleSubmit} className="flex flex-col w-full items-center max-w-xl mx-auto p-6 justify-center space-y-4 bg-gray-100 rounded-md shadow-md">
             <h1 className='text-lg m-6 text-black'>Create a New Proposal</h1>
             <div className="w-full">
