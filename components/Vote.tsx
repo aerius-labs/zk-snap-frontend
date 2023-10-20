@@ -5,8 +5,7 @@ export default function Vote() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeButton, setActiveButton] = useState('');
   const [worker, setWorker] = useState(null);
-  const [workerResult, setWorkerResult] = useState(null);
-  const [WorkerModule, setWorkerModule] = useState(null);
+  const [accountAddress, setAccountAddress] = useState('');
   const handleButtonClick = () => {
     setModalOpen(true);
   }
@@ -30,6 +29,10 @@ export default function Vote() {
         console.error("Worker error:", error);
       };
     });
+    const storedWalletAddress = sessionStorage.getItem('walletAddress');
+    if (storedWalletAddress) {
+      setAccountAddress(storedWalletAddress);
+    }
   }, []);
   const handleVote = () => {
     console.log(activeButton)

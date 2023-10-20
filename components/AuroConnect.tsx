@@ -7,6 +7,10 @@ function AuroConnect() {
   const [network, setNetwork] = useState('');
 
   useEffect(() => {
+    const storedWalletAddress = sessionStorage.getItem('walletAddress');
+    if (storedWalletAddress) {
+      setAccount(storedWalletAddress);
+    }
     if (window.mina) {
       window.mina.on('accountsChanged', handleNewAccounts);
       window.mina.on('chainChanged', handleChainChange);
@@ -20,6 +24,7 @@ function AuroConnect() {
   const handleNewAccounts = (newAccounts: any) => {
     if (Array.isArray(newAccounts) && newAccounts.length > 0) {
       setAccount(newAccounts[0]);
+      sessionStorage.setItem('walletAddress', newAccounts[0]);
     }
   };
 
@@ -28,6 +33,7 @@ function AuroConnect() {
       const data = await window.mina.requestAccounts().catch(err => err);
       if (!data.message && Array.isArray(data) && data.length > 0) {
         setAccount(data[0]);
+        sessionStorage.setItem('walletAddress', data[0]);
       }
     }
   };
