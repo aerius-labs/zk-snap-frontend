@@ -10,7 +10,7 @@ export default function Home({daos}:any) {
       className={`min-h-screen items-center justify-center py-12 ${inter.className}`}
     >
       <HomePageBar />
-      <div className='flex z-10 gap-8 flex-wrap justify-center items-center'>
+      <div className='flex z-10 gap-16 p-16 flex-wrap justify-center items-center'>
         {
           daos.map((listItem: any, idx: number) => (
             <Link key={idx} href={`/community/${listItem.id}`}>

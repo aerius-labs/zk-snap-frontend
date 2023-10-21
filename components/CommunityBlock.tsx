@@ -20,13 +20,17 @@ function CommunityBlock({community}: any) {
                         </filter>
                     </defs>
                 </svg>
-                {/* Community Logo */}
-                <Image className="absolute w-12 h-12 -mt-14" width={50} height={50} src='/Logo.png' alt="Community Logo"/>
+                <div className="absolute flex flex-col items-center justify-center h-full mt-8 w-full text-center">
+                    {/* Community Logo */}
+                    <Image className="w-12 h-12 -mt-14" width={50} height={50} src='/Logo.png' alt="Community Logo"/>
 
-                {/* Community name and members count */}
-                <div className="absolute flex-wrap mt-8 flex flex-col items-center">
-                    <p className='text-gray-100 mt-1 font-good-times'>{community?.name}</p>
-                    <p className='text-gray-700 text-xs font-good-times'>{community?.membersCount} members</p>
+                    {/* Community name and members count */}
+                    <p className="text-gray-100 mt-1 font-good-times">
+                        {community?.name}
+                    </p>
+                    <p className="text-gray-700 text-xs font-good-times">
+                        {community?.membersCount} members
+                    </p>
                 </div>
             </div>
             

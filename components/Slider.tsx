@@ -33,7 +33,7 @@ export function Slide1({startTime, endTime}:any) {
     return (
       <div className="flex flex-col items-center space-y-4">
         {/* BASIC INFO */}
-        <div className="h-40 md:h-32 px-4 py-2 w-full border border-custom-purple rounded-md">
+        <div className="px-4 py-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>BASIC INFO</p>
             </div>
@@ -42,7 +42,7 @@ export function Slide1({startTime, endTime}:any) {
         </div>
 
         {/* TIMELINE DETAILS */}
-        <div className="h-36 md:h-32 px-4 w-full border border-custom-purple rounded-md">
+        <div className="px-4 py-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>TIMELINE</p>
             </div>
@@ -51,7 +51,7 @@ export function Slide1({startTime, endTime}:any) {
         </div>
 
         {/* RESULTS */}
-        <div className="h-28 md:h-24 px-4 w-full border border-custom-purple rounded-md">
+        <div className="py-4 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>RESULTS</p>
             </div>
@@ -65,7 +65,7 @@ export function Slide2() {
     return (
       <div className="flex flex-col items-center space-y-4">
         {/* REWARDS */}
-        <div className="h-32 px-4 py-2 w-full border border-custom-purple rounded-md">
+        <div className="px-4 py-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>REWARDS</p>
             </div>
@@ -74,7 +74,7 @@ export function Slide2() {
         </div>
 
         {/* SUBMISSIONS */}
-        <div className="h-48 md:h-40 px-4 w-full border border-custom-purple rounded-md">
+        <div className="py-4 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>SUBMISSIONS</p>
             </div>
@@ -86,7 +86,7 @@ export function Slide2() {
         </div>
 
         {/* VOTING */}
-        <div className="h-32 px-4 w-full border border-custom-purple rounded-md">
+        <div className="py-4 px-4 w-full border border-custom-purple rounded-md">
             <div className='text-sm tracking-wider border-b border-custom-purple py-4'>
               <p className='font-good-times'>VOTING</p>
             </div>
