@@ -24,9 +24,11 @@ export default function Vote() {
       console.log("Worker loaded:", workerInstance);
       workerInstance.current.onmessage = (event:any) => {
         console.log('Getting the Result from Worker', event.data);
+        workerInstance.current?.terminate();
       };
       workerInstance.current.onerror = (error: any) => {
         console.error("Worker error:", error);
+        workerInstance.current?.terminate();
       };
     });
     const storedWalletAddress = sessionStorage.getItem('walletAddress');
