@@ -1,4 +1,4 @@
-import { Experimental, Field, MerkleWitness, Nullifier, Poseidon, PublicKey, Signature, Struct, } from 'o1js';
+import { Experimental, Field, MerkleWitness, Poseidon, Provable, PublicKey, Signature, Struct, } from 'o1js';
 import { exp, mulMod } from '../utils/circuit.utils';
 export class EncryptionPublicKey extends Struct({
     n: Field,
@@ -19,16 +19,14 @@ export class EncryptionPublicKey extends Struct({
     }
 }
 export class UserState extends Struct({
-    nullifier: Nullifier,
     encryptionPublicKey: EncryptionPublicKey,
     membersRoot: Field,
     userPublicKey: PublicKey,
     proposalId: Field,
-    encrypted_vote: Field,
+    encrypted_vote: Provable.Array(Field, 2),
 }) {
-    static create(nullifier, encryptionPublicKey, membersRoot, userPublicKey, proposalId, encrypted_vote) {
+    static create(encryptionPublicKey, membersRoot, userPublicKey, proposalId, encrypted_vote) {
         return new UserState({
-            nullifier,
             encryptionPublicKey,
             membersRoot,
             userPublicKey,
@@ -42,25 +40,23 @@ export class UserMerkleWitness extends MerkleWitness(8) {
 export const UserCircuit = Experimental.ZkProgram({
     publicInput: UserState,
     methods: {
-        generateVoteProof: {
-            privateInputs: [Signature, Field, Field, Field, Field, UserMerkleWitness],
-            method(userState, userSignature, vote, voteWeight, r_encryption, userBalance, membersProof) {
-                voteWeight.assertLessThanOrEqual(userBalance);
-                const merkleLeaf = Poseidon.hash([
-                    userState.userPublicKey.x,
-                    userBalance,
-                ]);
-                membersProof
+        generateProof: {
+            privateInputs: [
+                Signature,
+                Provable.Array(Field, 2),
+                Field,
+                UserMerkleWitness,
+            ],
+            method(userState, userSignature, vote, r_encryption, merkleProof) {
+                const merkleLeaf = Poseidon.hash([userState.userPublicKey.x]);
+                merkleProof
                     .calculateRoot(merkleLeaf)
                     .assertEquals(userState.membersRoot);
-                const message = vote.mul(voteWeight);
-                const encryptedVote = userState.encryptionPublicKey.encrypt(message, r_encryption);
-                encryptedVote.assertEquals(userState.encrypted_vote);
+                for (let i = 0; i < 2; i++) {
+                    const encryptedVote = userState.encryptionPublicKey.encrypt(vote[i], r_encryption);
+                    encryptedVote.assertEquals(userState.encrypted_vote[i]);
+                }
                 userSignature.verify(userState.userPublicKey, [
-                    userState.userPublicKey.x,
-                    userState.proposalId,
-                ]);
-                userState.nullifier.verify([
                     userState.userPublicKey.x,
                     userState.proposalId,
                 ]);
