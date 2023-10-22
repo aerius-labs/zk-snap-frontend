@@ -8,7 +8,6 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
   const [activeButton, setActiveButton] = useState(0);
   const [worker, setWorker] = useState(null);
   const [workerLoaded, setWorkerLoaded] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [accountAddress, setAccountAddress] = useState('');
   const handleButtonClick = () => {
     setModalOpen(true);
@@ -23,21 +22,6 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
   }
   const workerInstance = useRef<Worker | null>(null);
   useEffect(() => {
-    import('./proof.worker.js').then((WorkerModule:any) => {
-      workerInstance.current = new WorkerModule.default() as Worker;
-      console.log("Worker loaded:", workerInstance);
-      workerInstance.current.onmessage = (event:any) => {
-        console.log('Getting the Result from Worker', event.data);
-        workerInstance.current?.terminate();
-        setLoading(false);
-      };
-      workerInstance.current.onerror = (error: any) => {
-        console.error("Worker error:", error);
-        workerInstance.current?.terminate();
-        setLoading(false);
-      };
-      setWorkerLoaded(true);
-    });
     const storedWalletAddress = sessionStorage.getItem('walletAddress');
     if (storedWalletAddress) {
       setAccountAddress(storedWalletAddress);
@@ -48,6 +32,22 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
       alert('Please Select any option first');
       return;
     }
+    if(!workerLoaded){
+      await import('./proof.worker.js').then((WorkerModule:any) => {
+        workerInstance.current = new WorkerModule.default() as Worker;
+        console.log("Worker loaded:", workerInstance);
+        workerInstance.current.onmessage = (event:any) => {
+          console.log('Getting the Result from Worker', event.data);
+          workerInstance.current?.terminate();
+          setWorkerLoaded(false);
+        };
+        workerInstance.current.onerror = (error: any) => {
+          console.error("Worker error:", error);
+          workerInstance.current?.terminate();
+          setWorkerLoaded(false);
+        };
+        setWorkerLoaded(true);
+      });
     if(window.mina){
       const accounts = await window.mina.getAccounts();
       if(accounts.length == 0){
@@ -104,7 +104,6 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
       
       // Convert the modified JSON object back to a JSON string
       setModalOpen(false);
-      setLoading(true);
       try {
         console.log('Generating Proof');
         const inputData = {
@@ -128,21 +127,21 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
           console.error("Error generating proof:", error);
       }
     }
+  }
 }
   return (
     <div className="flex flex-col items-center mb-4">
-      <button disabled={loading} onClick={handleButtonClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
-        {loading?'VOTING...':'VOTE'}
+      <button onClick={handleButtonClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
+        VOTE
       </button>
       {isModalOpen && (
         <div id="modal" onClick={handleOutsideClick} className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-black border border-custom-purple w-3/4 md:w-1/4 flex flex-col justify-center rounded-lg py-8 px-10 text-center">
             <button
                 onClick={handleVote}
-                disabled={!workerLoaded}
                 className={`block mb-4 font-good-times cursor-pointer p-2 border-b border-custom-purple text-gray-500 rounded-md`}
             >
-                {workerLoaded?'VOTE':'LOADING...'}
+                VOTE
             </button>
             <button
                 onClick={() => handleOptionClick(2)}
