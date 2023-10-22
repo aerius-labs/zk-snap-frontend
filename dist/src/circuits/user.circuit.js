@@ -48,18 +48,23 @@ export const UserCircuit = Experimental.ZkProgram({
                 UserMerkleWitness,
             ],
             method(userState, userSignature, vote, r_encryption, merkleProof) {
+                Provable.log('1');
                 const merkleLeaf = Poseidon.hash([userState.userPublicKey.x]);
+                Provable.log('2');
                 merkleProof
                     .calculateRoot(merkleLeaf)
                     .assertEquals(userState.membersRoot);
+                Provable.log('3');
                 for (let i = 0; i < 2; i++) {
                     const encryptedVote = userState.encryptionPublicKey.encrypt(vote[i], r_encryption);
                     encryptedVote.assertEquals(userState.encrypted_vote[i]);
                 }
+                Provable.log('4');
                 userSignature.verify(userState.userPublicKey, [
                     userState.userPublicKey.x,
                     userState.proposalId,
                 ]);
+                Provable.log('5');
             },
         },
     },

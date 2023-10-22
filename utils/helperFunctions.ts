@@ -1,3 +1,4 @@
+import * as bs58 from 'bs58';
 export function getTimeDifference(targetTime: any) {
     const targetDate:any = new Date(targetTime);
     const currentDate:any = new Date();
@@ -42,3 +43,28 @@ export function formatDate(inputDateStr: any) {
 
   return formattedDate.replace(/,/g, ''); // Removes the comma after the day
 }
+
+export const uuidToBigInt = (uuid: string): string => {
+  const hexString = uuid.replace(/-/g, '');
+  return BigInt(`0x${hexString}`).toString();
+};
+
+export const getRandomNBitNumber = (bits: number) => {
+  let randomBigInt = BigInt(0);
+  for (let i = 0; i < bits; i++) {
+    randomBigInt |= BigInt(Math.floor(Math.random() * 2)) << BigInt(i);
+  }
+  return randomBigInt;
+};
+
+export const bs58ToBigInt = (address:any) => {
+  const bytes = bs58.decode(address);
+  const byteArray = Array.from(bytes);
+  let result = BigInt(0);
+  for (let i = 0; i < byteArray.length; i++) {
+    result = result * BigInt(256) + BigInt(byteArray[i]);
+  }
+
+  return result;
+};
+

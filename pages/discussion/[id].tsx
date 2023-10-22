@@ -5,7 +5,7 @@ import Slider from '@/components/Slider';
 import DiscussionItem from '@/components/Discussion';
 import { GetServerSideProps } from 'next';
 
-export default function Discussions({id}:any) {
+export default function Discussions({id, proposalDetails}:any) {
   const discussions = [
     {
       logo: '/Logo.png',
@@ -39,7 +39,7 @@ export default function Discussions({id}:any) {
                     }
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
-                    <Vote />
+                    <Vote daoId={proposalDetails.daoId} proposalId={proposalDetails.proposalID} membersRoot={proposalDetails.membersRoot} encryptionKeys={proposalDetails.encryptionKeys}/>
                     <Slider/>
                 </div>
             </div>
@@ -49,6 +49,8 @@ export default function Discussions({id}:any) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.params?.id;
+    const response = await fetch(`http://localhost:3001/api/getSpecificProposal?id=${id}`);
+    const proposalDetails = await response.json();
     if (!id) {
         return {
           notFound: true
@@ -56,7 +58,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     return {
       props: {
-        id
+        id,
+        proposalDetails
       }
     };
 };

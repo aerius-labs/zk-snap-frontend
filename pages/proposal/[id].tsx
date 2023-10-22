@@ -5,9 +5,6 @@ import Slider from '@/components/Slider';
 import { GetServerSideProps } from 'next';
 import { getTimeDifference } from '@/utils/helperFunctions';
 export default function Proposal({id, proposalDetails}:any) {
-    const proposalDetail = {
-        communityName:'Aave',
-    };
     return (
         <main
         className={`min-h-screen items-center justify-center px-24`}
@@ -42,7 +39,7 @@ export default function Proposal({id, proposalDetails}:any) {
                     </div>
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
-                    <Vote />
+                    <Vote daoId={proposalDetails.daoId} proposalId={proposalDetails.proposalID} membersRoot={proposalDetails.membersRoot} encryptionKeys={proposalDetails.encryptionKeys} />
                     <Slider startTime = {proposalDetails.start_time} endTime = {proposalDetails.end_time}/>
                 </div>
             </div>
