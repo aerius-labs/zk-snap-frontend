@@ -6,9 +6,10 @@ import * as paillierBigint from 'paillier-bigint'
 export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:any) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeButton, setActiveButton] = useState(0);
-  const [worker, setWorker] = useState(null);
-  const [workerLoaded, setWorkerLoaded] = useState(false);
   const [accountAddress, setAccountAddress] = useState('');
+  const [disabledProposalIds, setDisabledProposalIds] = useState([]);
+  const [alreadyVotedProposalIds, setAlreadyVotedProposalIds] = useState([]);
+
   const handleButtonClick = () => {
     setModalOpen(true);
   }
@@ -23,8 +24,18 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
   const workerInstance = useRef<Worker | null>(null);
   useEffect(() => {
     const storedWalletAddress = sessionStorage.getItem('walletAddress');
+    const disabledProposals = localStorage.getItem('disabledProposalIds');
+    const alreadyVotedIds = localStorage.getItem('alreadyVotedProposalIds');
     if (storedWalletAddress) {
       setAccountAddress(storedWalletAddress);
+    }
+    if(disabledProposals){
+      const parsedDisabledProposalIds = JSON.parse(disabledProposals);
+      setDisabledProposalIds(parsedDisabledProposalIds);
+    }
+    if(alreadyVotedIds){
+      const parsedAlreadyVotedIds = JSON.parse(alreadyVotedIds);
+      setAlreadyVotedProposalIds(parsedAlreadyVotedIds)
     }
   }, []);
   const handleVote = async() => {
@@ -32,7 +43,8 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
       alert('Please Select any option first');
       return;
     }
-    if(!workerLoaded){
+    if((disabledProposalIds.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
+      setModalOpen(false);
       await import('./proof.worker.js').then((WorkerModule:any) => {
         workerInstance.current = new WorkerModule.default() as Worker;
         console.log("Worker loaded:", workerInstance);
@@ -46,14 +58,21 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
             body: JSON.stringify(event.data),
           });
           workerInstance.current?.terminate();
-          setWorkerLoaded(false);
+          const updatedDisabledProposalIds = disabledProposalIds.filter((id) => id !== proposalId);
+          setDisabledProposalIds(updatedDisabledProposalIds);
+          localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
+          const updatedVotedIds = [...alreadyVotedProposalIds, proposalId];
+          setAlreadyVotedProposalIds(updatedVotedIds);
+          localStorage.setItem('alreadyVotedProposalIds', JSON.stringify(updatedVotedIds))
+
         };
         workerInstance.current.onerror = (error: any) => {
           console.error("Worker error:", error);
           workerInstance.current?.terminate();
-          setWorkerLoaded(false);
+          const updatedDisabledProposalIds = disabledProposalIds.filter((id) => id !== proposalId);
+          setDisabledProposalIds(updatedDisabledProposalIds);
+          localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
         };
-        setWorkerLoaded(true);
       });
     if(window.mina){
       const accounts = await window.mina.getAccounts();
@@ -97,6 +116,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
         })
       } catch (error: any) {
         console.log(error.message, error.code)
+        return;
       }
       console.log('encrypt',encryptionPublicKey)
       console.log('N', encryptionPublicKey.n.toString())
@@ -110,7 +130,6 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
       console.log('encryptionPublicKeyStrinJson',JSON.stringify(encryptionPublicKeyStr));
       
       // Convert the modified JSON object back to a JSON string
-      setModalOpen(false);
       try {
         console.log('Generating Proof');
         const inputData = {
@@ -124,9 +143,12 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
           memberProofStr: JSON.parse(membersProofStr),
           r_encryptionStr: r_encryption.toString(),
         };
-        // console.log('Prepared Data', JSON.stringify(inputData))
+        console.log('Prepared Data', inputData)
         console.log(membersRoot)
         if (workerInstance.current) {
+          const updatedDisabledProposalIds = [...disabledProposalIds, proposalId];
+          setDisabledProposalIds(updatedDisabledProposalIds);
+          localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
           console.log('Inside workerInstance');
           workerInstance.current.postMessage(inputData);
         }
@@ -134,12 +156,18 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
           console.error("Error generating proof:", error);
       }
     }
+  }else{
+    if(disabledProposalIds.length>0){
+      alert("Proof Generation is already running for some post!");
+    }else{
+      alert("You have already Voted");
+    }
   }
 }
   return (
     <div className="flex flex-col items-center mb-4">
-      <button onClick={handleButtonClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
-        VOTE
+      <button disabled={disabledProposalIds.length>0 || alreadyVotedProposalIds.includes(proposalId)} onClick={handleButtonClick} className={`${(alreadyVotedProposalIds.includes(proposalId) || disabledProposalIds.includes(proposalId))?'bg-gray-500':''} text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
+        {disabledProposalIds.includes(proposalId)?'VOTING...':alreadyVotedProposalIds.includes(proposalId)?'VOTED':'VOTE'}
       </button>
       {isModalOpen && (
         <div id="modal" onClick={handleOutsideClick} className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
