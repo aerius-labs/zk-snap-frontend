@@ -49,7 +49,7 @@ export default function Proposal({id, proposalDetails}:any) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.params?.id;
-    const response = await fetch(`http://localhost:3001/api/getSpecificProposal?id=${id}`);
+    const response = await fetch(`${process.env.FRONTENDURL}/api/getSpecificProposal?id=${id}`);
     const proposalDetails = await response.json();
     // You can now use the id for fetching data or any other server-side operations
     if (!id) {

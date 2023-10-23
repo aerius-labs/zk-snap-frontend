@@ -50,7 +50,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
         console.log("Worker loaded:", workerInstance);
         workerInstance.current.onmessage = (event:any) => {
           console.log('Getting the Result from Worker', event.data);
-          fetch(`http://localhost:3001/api/postProof?proposalId=${proposalId}`, {
+          fetch(`${process.env.FRONTENDURL}/api/postProof?proposalId=${proposalId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
         encryptedVote.push(enc.toString());
       }
       console.log('Encrypted Vote Value', encryptedVote);
-      const response = await fetch(`http://localhost:3001/api/getMerkleProof?daoId=${daoId}&memberPublicKey=${accountAddress}`)
+      const response = await fetch(`${process.env.FRONTENDURL}/api/getMerkleProof?daoId=${daoId}&memberPublicKey=${accountAddress}`)
       if (!response.ok) {
         throw new Error('Network response was not ok');
         return;

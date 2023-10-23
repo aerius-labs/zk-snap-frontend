@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
     const { id } = req.query;
-    const response = await fetch(`http://localhost:3000/dao/${id}`);
+    const response = await fetch(`${process.env.DATABASEURL}/dao/${id}`);
     const daoDetails = await response.json();
     res.status(200).json(daoDetails);
 }

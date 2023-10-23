@@ -72,7 +72,7 @@ export default function Community({ id, daoDetails }: any) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.params?.id;
-    const response = await fetch(`http://localhost:3001/api/getSpecificDao?id=${id}`);
+    const response = await fetch(`${process.env.FRONTENDURL}/api/getSpecificDao?id=${id}`);
     const daoDetails = await response.json();
     // You can now use the id for fetching data or any other server-side operations
     if (!id) {

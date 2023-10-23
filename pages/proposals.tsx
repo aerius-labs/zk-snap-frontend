@@ -21,7 +21,7 @@ export default function Proposals({proposals}:any) {
   )
 }
 export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3001/api/getAllProposals');
+  const response = await fetch(`${process.env.FRONTENDURL}/api/getAllProposals`);
   const proposals = await response.json();
   return {
     props: {

@@ -24,7 +24,7 @@ export default function Home({daos}:any) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3001/api/getAllDaos');
+  const response = await fetch(`${process.env.FRONTENDURL}/api/getAllDaos`);
   const daos = await response.json();
   return {
     props: {

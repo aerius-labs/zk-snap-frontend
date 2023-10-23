@@ -8,7 +8,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const {proposalId} = req.query; 
     const proof = req.body; // Data sent in the POST request
-    const response = await fetch(`http://localhost:3000/proposal/${proposalId}/vote`, {
+    const response = await fetch(`${process.env.DATABASEURL}/proposal/${proposalId}/vote`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

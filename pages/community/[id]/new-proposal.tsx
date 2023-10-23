@@ -49,7 +49,7 @@ export default function Proposal({id}:any) {
     const start_time = combineDateTime(startDate, startTime);
     const end_time = combineDateTime(endDate, endTime);
     // Handle form submission logic here
-    const response = await fetch('http://localhost:3001/api/postProposal', {
+    const response = await fetch(`${process.env.FRONTENDURL}/api/postProposal`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

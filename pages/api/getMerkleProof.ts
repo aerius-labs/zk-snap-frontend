@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
     const { daoId, memberPublicKey } = req.query;
-    const response = await fetch(`http://localhost:3000/dao/${daoId}/merkle-proof/${memberPublicKey}`);
+    const response = await fetch(`${process.env.DATABASEURL}/dao/${daoId}/merkle-proof/${memberPublicKey}`);
     const merkleProof = await response.json();
     res.status(200).json(merkleProof);
 }
