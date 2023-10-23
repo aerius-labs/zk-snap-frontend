@@ -87,7 +87,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
       const n = JSON.parse(encryptionKeys.public_key).n;
       const g = JSON.parse(encryptionKeys.public_key).g;
       console.log('N,G', n, g);
-      const encryptionPublicKey = new paillierBigint.PublicKey(BigInt(n.slice(0,-1)), BigInt(g.slice(0,-1)));
+      const encryptionPublicKey = new paillierBigint.PublicKey(BigInt(n), BigInt(g));
       console.log('EncryptionPublic',encryptionPublicKey)
       const r_encryption: Field = Field(getRandomNBitNumber(63));
       console.log('R', r_encryption)
