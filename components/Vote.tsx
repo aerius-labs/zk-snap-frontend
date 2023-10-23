@@ -38,6 +38,13 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
         console.log("Worker loaded:", workerInstance);
         workerInstance.current.onmessage = (event:any) => {
           console.log('Getting the Result from Worker', event.data);
+          fetch(`http://localhost:3001/api/postProof?proposalId=${proposalId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(event.data),
+          });
           workerInstance.current?.terminate();
           setWorkerLoaded(false);
         };
@@ -139,7 +146,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
           <div className="bg-black border border-custom-purple w-3/4 md:w-1/4 flex flex-col justify-center rounded-lg py-8 px-10 text-center">
             <button
                 onClick={handleVote}
-                className={`block mb-4 font-good-times cursor-pointer p-2 border-b border-custom-purple text-gray-500 rounded-md`}
+                className={`block bg-green-500 mb-4 font-good-times cursor-pointer p-2 border-2 border-custom-purple text-gray-500 rounded-md`}
             >
                 VOTE
             </button>
