@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Dropdown from '@/components/DropDown';
 import Link from 'next/link';
 
@@ -14,12 +13,12 @@ function CommunityPageBar() {
                 </svg>
             </Link>
             <Link href='/new-proposal'>
-                <button className='text-gray-100 border-custom-purple border py-2 px-8 ml-4 rounded-2xl'>NEW PROPOSAL</button>
+                <button className='text-gray-100 border-custom-purple border py-2 px-8 ml-4 rounded-2xl font-good-times'>NEW PROPOSAL</button>
             </Link>
         </div>
         
         {/* New Button in the middle */}
-        <button className='text-gray-100 text-xs border-custom-purple border px-2 py-1 mr-10 rounded-2xl'>
+        <button className='text-gray-100 text-xs border-custom-purple border px-2 py-1 mr-10 rounded-2xl font-good-times'>
             JOIN
         </button>
 

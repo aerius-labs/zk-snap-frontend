@@ -1,7 +1,6 @@
-import Image from "next/image";
 function Header() {
     return (
-        <div className="w-full sticky top-0">
+        <div className="w-full sticky top-0 bg-black backdrop-blur-md z-40">
             <section className="flex justify-center items-center p-4">
                 {/* zk-snap logo of header */}
                 <svg className="flex-grow ml-24 text-center" xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 56" fill="none">
@@ -38,7 +37,7 @@ function Header() {
                     </defs>
                 </svg>
                 {/* Connect Wallet Functionality in header */}
-                <button className="ml-auto text-xs font-good-times text-gray-200 border p-2 rounded-3xl border-custom-purple" style={{fontFamily:'sans-serif'}}>CONNECT WALLET</button>
+                <button className="ml-auto text-xs text-gray-200 border p-2 rounded-3xl border-custom-purple font-good-times">CONNECT WALLET</button>
             </section>
             <hr className="border-t border-custom-purple m-0" />
         </div>

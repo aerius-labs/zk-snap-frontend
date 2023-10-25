@@ -1,6 +1,4 @@
-import ProposalItem from '@/components/Proposal';
 import Image from 'next/image';
-import Link from 'next/link';
 import ProposalPageBar from '@/components/ProposalPageBar';
 import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
@@ -24,10 +22,10 @@ export default function Proposal() {
                     <ProposalPageBar />
                     <div className='flex items-center gap-3 text-lg'>
                         <Image src={'/community_logo.png'} alt='Community Logo' width={30} height={30} />
-                        <p>{communityName}</p>
+                        <p className='font-good-times'>{communityName}</p>
                     </div>
-                    <div className='pt-4 text-3xl'>{title}</div>
-                    <div className='flex gap-2 ml-4 md:ml-0'>
+                    <div className='pt-4 text-3xl font-good-times'>{title}</div>
+                    <div className='flex gap-2 flex-col md:flex-row md:ml-0'>
                         <p className={`text-gray-200 border font-bold rounded-full flex items-center mt-2 px-2 text-xs ${endsIn!=='Ended'? 'bg-green-500 border-green-500 text-black':'bg-gray-600 text-gray-200 border-gray-600'}`}>
                             {
                                 endsIn!=='Ended' ? 

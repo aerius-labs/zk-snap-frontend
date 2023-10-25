@@ -1,6 +1,4 @@
-import Dropdown from '@/components/DropDown';
 import Image from 'next/image';
-import Link from 'next/link';
 
 function ProposalItem({proposal}:any) {
     return (
@@ -12,19 +10,19 @@ function ProposalItem({proposal}:any) {
                 </div> : null}
                 <div className='w-3/4'>
                     {/* Rendered only on mobile (width < 640px by default in Tailwind) */}
-                    <h6 className='text-gray-200 leading-none mb-1 text-sm sm:hidden ml-4'>
+                    <h6 className='text-gray-200 leading-none mb-1 text-sm sm:hidden ml-4 font-good-times'>
                         {proposal.title.length > 30 ? `${proposal.title.slice(0, 40)}...` : proposal.title}
                     </h6>
 
                     {/* Rendered only on screens >= md size (width >= 768px by default in Tailwind) */}
-                    <h6 className='text-gray-200 leading-none mb-1 text-lg hidden md:block'>
+                    <h6 className='text-gray-200 leading-none mb-1 text-lg hidden md:block font-good-times'>
                         {proposal.title.length > 150 ? `${proposal.title.slice(0, 150)}...` : proposal.title}
                     </h6>
                     <p className='text-gray-200 text-sm leading-snug hidden md:block'>
                         {proposal.description.length > 150 ? `${proposal.description.slice(0, 150)}...` : proposal.description}
                     </p>
 
-                    <div className='flex gap-2 ml-4 md:ml-0'>
+                    <div className={`flex flex-col md:flex-row gap-2 ml-4 md:ml-0`}>
                         <p className={`text-gray-200 border font-bold rounded-full flex items-center mt-2 px-2 text-xs ${proposal.endsIn!=='Ended'? 'bg-green-500 border-green-500 text-black':'bg-gray-600 text-gray-200 border-gray-600'}`}>
                             {
                                 proposal.endsIn!=='Ended' ? 
@@ -42,12 +40,12 @@ function ProposalItem({proposal}:any) {
                     </div>
                 </div>
                 {proposal.winningAmount ?
-                    <div className='ml-auto text-gray-300 px-6 mr-6'>
-                        <p className='text-sm md:text-xl'>{proposal.winningAmount}</p>
-                        <p className='text-xs md:text-sm'>to {proposal.winnerCount} winners</p>
+                    <div className='ml-auto text-gray-300 px-6 mr-2'>
+                        <p className='text-sm md:text-xl font-good-times'>{proposal.winningAmount}</p>
+                        <p className='text-xs md:text-sm font-good-times'>to {proposal.winnerCount} winners</p>
                     </div> : 
-                    <div className='ml-auto mr-5 text-gray-500'>
-                        <p className='text-xl'>NO REWARDS</p>
+                    <div className='ml-auto px-6 mr-2 text-gray-500'>
+                        <p className='text-sm md:text-xl font-good-times'>NO REWARDS</p>
                     </div>
                 }
             </div>
