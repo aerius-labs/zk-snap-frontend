@@ -8,9 +8,17 @@ function AuroConnect() {
 
   useEffect(() => {
     const storedWalletAddress = sessionStorage.getItem('walletAddress');
-    if (storedWalletAddress) {
-      setAccount(storedWalletAddress);
-    }
+    const fetchData = async () => {
+      try {
+        const fetchedAccounts = await window.mina.getAccounts();
+        if (storedWalletAddress && fetchedAccounts.length>0) {
+          setAccount(storedWalletAddress);
+        }
+      } catch (error) {
+        console.error('Error fetching accounts:', error);
+      }
+    };
+    fetchData();
     if (window.mina) {
       window.mina.on('accountsChanged', handleNewAccounts);
       window.mina.on('chainChanged', handleChainChange);
