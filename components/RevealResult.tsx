@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 export default function RevealResult({ proposalId, endTime }: any) {
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -21,8 +23,16 @@ export default function RevealResult({ proposalId, endTime }: any) {
 
   const handleClick = async (e: any) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.FRONTENDURL}/api/getResult?proposalId=${proposalId}`);
-    console.log(response.text());
+    setLoading(true);
+    try {
+      const response = await fetch(`${process.env.FRONTENDURL}/api/getResult?proposalId=${proposalId}`);
+      const data = await response.json();
+      const resultArray = data.result;
+      setData(resultArray);  // Store the fetched data in state
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+    setLoading(false);
   };
   const countdownData = formatCountdown(countdown);
   return (
@@ -42,9 +52,13 @@ export default function RevealResult({ proposalId, endTime }: any) {
                 <span className="text-xs text-custom-purple uppercase tracking-wider mt-1">Seconds</span>
             </div>
         </div>
+      ) : data ? (
+        <div>
+          <p className='text-custom-purple'>YES: {data[0]}  |   NO: {data[1]}</p>
+        </div>
       ) : (
-        <button onClick={handleClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-custom-purple flex justify-center items-center`}>
-          REVEAL RESULT
+        <button disabled={loading} onClick={handleClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-custom-purple flex justify-center items-center`}>
+          {loading? 'REVEALING...' : 'REVEAL RESULT'}
         </button>
       )}
     </div>
