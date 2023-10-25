@@ -4,6 +4,7 @@ import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
 import { GetServerSideProps } from 'next';
 import { getTimeDifference } from '@/utils/helperFunctions';
+import RevealResult from '@/components/RevealResult';
 export default function Proposal({id, proposalDetails}:any) {
     return (
         <main
@@ -40,6 +41,7 @@ export default function Proposal({id, proposalDetails}:any) {
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
                     <Vote daoId={proposalDetails.daoId} proposalId={proposalDetails.proposalID} membersRoot={proposalDetails.membersRoot} encryptionKeys={proposalDetails.encryptionKeys} />
+                    <RevealResult proposalId={proposalDetails.proposalID} endTime = {proposalDetails.end_time}/>
                     <Slider startTime = {proposalDetails.start_time} endTime = {proposalDetails.end_time}/>
                 </div>
             </div>
@@ -52,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const response = await fetch(`${process.env.FRONTENDURL}/api/getSpecificProposal?id=${id}`);
     const proposalDetails = await response.json();
     // You can now use the id for fetching data or any other server-side operations
-    if (!id) {
+    if (!id || proposalDetails.statusCode==404) {
         return {
           notFound: true
         };

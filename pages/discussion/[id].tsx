@@ -4,6 +4,7 @@ import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
 import DiscussionItem from '@/components/Discussion';
 import { GetServerSideProps } from 'next';
+import RevealResult from '@/components/RevealResult';
 
 export default function Discussions({id, proposalDetails}:any) {
   const discussions = [
@@ -40,7 +41,8 @@ export default function Discussions({id, proposalDetails}:any) {
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
                     <Vote daoId={proposalDetails.daoId} proposalId={proposalDetails.proposalID} membersRoot={proposalDetails.membersRoot} encryptionKeys={proposalDetails.encryptionKeys}/>
-                    <Slider/>
+                    <RevealResult proposalId={proposalDetails.proposalID} endTime = {proposalDetails.end_time}/>
+                    <Slider startTime = {proposalDetails.start_time} endTime = {proposalDetails.end_time}/>
                 </div>
             </div>
         </main>

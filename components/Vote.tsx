@@ -5,6 +5,7 @@ import * as paillierBigint from 'paillier-bigint'
 
 export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:any) {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isVoteDisabled, setIsVoteDisabled] = useState(false);
   const [activeButton, setActiveButton] = useState(0);
   const [accountAddress, setAccountAddress] = useState('');
   const [disabledProposalIds, setDisabledProposalIds] = useState([]);
@@ -40,11 +41,11 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
   }, []);
   const handleVote = async() => {
     if(activeButton===0){
-      alert('Please Select any option first');
+      alert('Please select any option either YES or NO');
       return;
     }
     if((disabledProposalIds.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
-      setModalOpen(false);
+      setIsVoteDisabled(true);
       await import('./proof.worker.js').then((WorkerModule:any) => {
         workerInstance.current = new WorkerModule.default() as Worker;
         console.log("Worker loaded:", workerInstance);
@@ -74,7 +75,9 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
           localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
         };
       });
-    if(window.mina){
+      setIsVoteDisabled(false)
+      setModalOpen(false);
+      if(window.mina){
       const accounts = await window.mina.getAccounts();
       if(accounts.length == 0){
         const data = await window.mina.requestAccounts().catch(err => err);
@@ -166,15 +169,16 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
 }
   return (
     <div className="flex flex-col items-center mb-4">
-      <button disabled={disabledProposalIds.length>0 || alreadyVotedProposalIds.includes(proposalId)} onClick={handleButtonClick} className={`${(alreadyVotedProposalIds.includes(proposalId) || disabledProposalIds.includes(proposalId))?'bg-gray-500':''} text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
+      <button disabled={disabledProposalIds.length>0 || alreadyVotedProposalIds.includes(proposalId)} onClick={handleButtonClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
         {disabledProposalIds.includes(proposalId)?'VOTING...':alreadyVotedProposalIds.includes(proposalId)?'VOTED':'VOTE'}
       </button>
       {isModalOpen && (
         <div id="modal" onClick={handleOutsideClick} className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-black border border-custom-purple w-3/4 md:w-1/4 flex flex-col justify-center rounded-lg py-8 px-10 text-center">
+          <div className="bg-black w-3/4 md:w-1/4 flex flex-col justify-center rounded-lg py-8 px-10 text-center">
             <button
                 onClick={handleVote}
-                className={`block bg-green-500 mb-4 font-good-times cursor-pointer p-2 border-2 border-custom-purple text-gray-500 rounded-md`}
+                disabled={isVoteDisabled}
+                className={`block bg-green-500 mb-4 font-good-times cursor-pointer p-2 text-gray-500 rounded-md`}
             >
                 VOTE
             </button>
