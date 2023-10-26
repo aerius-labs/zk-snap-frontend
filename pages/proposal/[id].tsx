@@ -40,7 +40,7 @@ export default function Proposal({id, proposalDetails}:any) {
                     </div>
                 </div>
                 <div className='text-gray-200 w-full md:w-1/4'>
-                    <Vote daoId={proposalDetails.daoId} proposalId={proposalDetails.proposalID} membersRoot={proposalDetails.membersRoot} encryptionKeys={proposalDetails.encryptionKeys} />
+                    <Vote daoId={proposalDetails.daoId} proposalId={proposalDetails.proposalID} membersRoot={proposalDetails.membersRoot} encryptionKeys={proposalDetails.encryptionKeys} startTime={proposalDetails.start_time} endTime = {proposalDetails.end_time}/>
                     <RevealResult proposalId={proposalDetails.proposalID} endTime = {proposalDetails.end_time}/>
                     <Slider startTime = {proposalDetails.start_time} endTime = {proposalDetails.end_time}/>
                 </div>

@@ -3,7 +3,7 @@ import { Field, PublicKey, Signature } from 'o1js';
 import { getRandomNBitNumber, uuidToBigInt, bs58ToBigInt } from '@/utils/helperFunctions';
 import * as paillierBigint from 'paillier-bigint'
 
-export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:any) {
+export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, startTime, endTime}:any) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isVoteDisabled, setIsVoteDisabled] = useState(false);
   const [activeButton, setActiveButton] = useState(0);
@@ -40,8 +40,18 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
     }
   }, []);
   const handleVote = async() => {
+    const startTimeOfProposal = new Date(startTime);
+    const currentTime = new Date();
+    const endTimeOfProposal = new Date(endTime);
+    
     if(activeButton===0){
       alert('Please select any option either YES or NO');
+      return;
+    }else if(startTimeOfProposal>currentTime){
+      alert('Voting is not open yet');
+      return;
+    }else if(endTimeOfProposal<currentTime){
+      alert('Voting Closed');
       return;
     }
     if((disabledProposalIds.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
@@ -56,7 +66,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(event.data),
+            body: event.data,
           });
           workerInstance.current?.terminate();
           const updatedDisabledProposalIds = disabledProposalIds.filter((id) => id !== proposalId);
@@ -85,6 +95,8 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
           sessionStorage.setItem('walletAddress', data[0]);
           setAccountAddress(data[0]);
         }
+      }else{
+        sessionStorage.setItem('walletAddress', accounts[0]);
       }
       console.log('API key', encryptionKeys.public_key);
       const n = JSON.parse(encryptionKeys.public_key).n;
@@ -112,10 +124,11 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys}:an
         return;
       }
       const membersProofStr = await response.text();
+      const accountAddressOfUser = sessionStorage.getItem('walletAddress');
       let signFieldsResult;
       try {
         signFieldsResult = await window.mina.signFields({
-          message: [PublicKey.fromBase58(accountAddress).x.toString(), Field(uuidToBigInt(proposalId)).toString()],
+          message: [PublicKey.fromBase58(accountAddressOfUser).x.toString(), Field(uuidToBigInt(proposalId)).toString()],
         })
       } catch (error: any) {
         console.log(error.message, error.code)

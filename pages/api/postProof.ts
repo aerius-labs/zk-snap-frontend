@@ -13,11 +13,11 @@ export default async function handler(
       headers: {
         'Content-Type': 'application/json',
       },
-      body: proof,
+      body: JSON.stringify(proof),
     });
 
-    const result = await response.json();
-    res.status(200).json(result);
+    // const result = await response.json();
+    // res.status(200).json(result);
 
   } else {
     // Return an error for unsupported methods

@@ -12,9 +12,10 @@ export default function Proposal({id}:any) {
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
   const [accountAddress, setAccountAddress] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   function combineDateTime(date, time) {
     const timeDate = new Date(time);
@@ -28,6 +29,7 @@ export default function Proposal({id}:any) {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let accountValue='';
     if(window.mina){
       const accounts = await window.mina.getAccounts();
@@ -65,6 +67,7 @@ export default function Proposal({id}:any) {
       });
   
       const result = await response.json();
+      setLoading(false);
       console.log(result);
       router.push(`/community/${id}`);
   };
@@ -72,11 +75,11 @@ export default function Proposal({id}:any) {
   return (
     <div className='min-h-screen flex justify-center items-center'>
         <form onSubmit={handleSubmit} className="flex flex-col items-center max-w-xl mx-auto w-full justify-center space-y-4 rounded-md shadow-md">
-            <h1 className='text-lg text-gray-400'>Create a New Proposal</h1>
+            <h1 className='text-2xl font-bold text-gray-200'>Create a New Proposal</h1>
             <div className="w-full">
                 <input
                   type="text"
-                  className="w-full p-2 text-black bg-gray-800 rounded-md"
+                  className="w-full p-2 text-gray-200 bg-gray-800 rounded-md"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Title"
@@ -86,7 +89,7 @@ export default function Proposal({id}:any) {
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full p-2 text-black bg-gray-800 rounded-md"
+                  className="w-full p-2 text-gray-200 bg-gray-800 rounded-md"
                   placeholder="Description"
                 />
             </div>
@@ -94,14 +97,16 @@ export default function Proposal({id}:any) {
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                className="p-2 mt-2 sm:mt-0 text-black bg-gray-800 rounded-md sm:mr-2"
+                className="p-2 mt-2 sm:mt-0 text-gray-200 bg-gray-800 rounded-md sm:mr-2"
                 placeholderText="Start date"
+                minDate={new Date()}
               />
               <DatePicker
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
-                className="p-2 mt-2 sm:mt-0 text-black bg-gray-800 rounded-md"
+                className="p-2 mt-2 sm:mt-0 text-gray-200 bg-gray-800 rounded-md"
                 placeholderText="End date"
+                minDate={new Date()}
               />
             </div>
             <div className="w-full flex flex-col sm:flex-row sm:justify-between">
@@ -116,7 +121,7 @@ export default function Proposal({id}:any) {
                                 borderRadius:'6px',
                       }
                     }}
-                    className="mt-2 sm:mt-0 text-black sm:mr-2"
+                    className="mt-2 sm:mt-0 text-gray-200 sm:mr-2"
                 />
                 <Datetime
                     dateFormat={false}
@@ -129,11 +134,11 @@ export default function Proposal({id}:any) {
                                 borderRadius:'6px',        
                             }
                     }}
-                    className='mt-2 sm:mt-0 text-black'
+                    className='mt-2 sm:mt-0 text-gray-200'
                 />
             </div>
             <div className='w-full'>
-                <button type="submit" className="w-full py-2 mt-4 border text-white rounded-md hover:ring-2 hover:ring-custom-purple">Submit</button>
+                <button type="submit" disabled={loading} className="w-full py-2 mt-4 border text-white rounded-md hover:ring-2 hover:ring-custom-purple">Submit</button>
             </div>
         </form>
     </div>
