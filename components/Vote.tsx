@@ -98,6 +98,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
       }else{
         sessionStorage.setItem('walletAddress', accounts[0]);
       }
+      const accountAddressOfUser = sessionStorage.getItem('walletAddress');
       console.log('API key', encryptionKeys.public_key);
       const n = JSON.parse(encryptionKeys.public_key).n;
       const g = JSON.parse(encryptionKeys.public_key).g;
@@ -118,13 +119,12 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
         encryptedVote.push(enc.toString());
       }
       console.log('Encrypted Vote Value', encryptedVote);
-      const response = await fetch(`${process.env.FRONTENDURL}/api/getMerkleProof?daoId=${daoId}&memberPublicKey=${accountAddress}`)
+      const response = await fetch(`${process.env.FRONTENDURL}/api/getMerkleProof?daoId=${daoId}&memberPublicKey=${accountAddressOfUser}`)
       if (!response.ok) {
         throw new Error('Network response was not ok');
         return;
       }
       const membersProofStr = await response.text();
-      const accountAddressOfUser = sessionStorage.getItem('walletAddress');
       let signFieldsResult;
       try {
         signFieldsResult = await window.mina.signFields({
@@ -151,7 +151,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
         const inputData = {
           encryptionPublicKeyStr: JSON.stringify(encryptionPublicKeyStr),
           membersRootStr: membersRoot,
-          userPublicKeyStr: JSON.stringify(accountAddress.toString()),
+          userPublicKeyStr: JSON.stringify(accountAddressOfUser.toString()),
           proposalIdStr: uuidToBigInt(proposalId),
           encryptedVoteStr: encryptedVote,
           userSignatureStr: JSON.stringify(Signature.fromBase58(signFieldsResult.signature).toJSON()),
