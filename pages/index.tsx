@@ -24,11 +24,20 @@ export default function Home({daos}:any) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3001/api/getAllDaos');
-  const daos = await response.json();
-  return {
-    props: {
-      daos
+  try {
+    const response = await fetch('http://localhost:3001/api/getAllDaos');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
     }
-  };
+    const daos = await response.json();
+    return {
+      props: {
+        daos
+      }
+    };
+  } catch (error) {
+    return {
+      notFound: true
+    };
+  }
 }
