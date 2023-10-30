@@ -6,18 +6,19 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { Moment } from 'moment';
 
 export default function Proposal({id}:any) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
-  const [accountAddress, setAccountAddress] = useState('');
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startTime, setStartTime] = useState<string | Moment | undefined>(undefined);
+  const [endTime, setEndTime] = useState<string | Moment | undefined>(undefined);
+  const [accountAddress, setAccountAddress] = useState<string | null>('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  function combineDateTime(date, time) {
+  function combineDateTime(date:any, time:any) {
     const timeDate = new Date(time);
     date.setHours(timeDate.getHours());
     date.setMinutes(timeDate.getMinutes());
@@ -27,14 +28,14 @@ export default function Proposal({id}:any) {
     return date.toISOString();
   }
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     setLoading(true);
-    let accountValue='';
+    let accountValue=null;
     if(window.mina){
       const accounts = await window.mina.getAccounts();
       if(accounts.length == 0){
-        const data = await window.mina.requestAccounts().catch(err => err);
+        const data = await window.mina.requestAccounts().catch((err:any)=> err);
         if (!data.message && Array.isArray(data) && data.length > 0) {
           sessionStorage.setItem('walletAddress', data[0]);
           accountValue = data[0];

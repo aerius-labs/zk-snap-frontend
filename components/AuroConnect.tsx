@@ -38,7 +38,7 @@ function AuroConnect() {
 
   const initAccount = async () => {
     if (window.mina) {
-      const data = await window.mina.requestAccounts().catch(err => err);
+      const data = await window.mina.requestAccounts().catch((err: any) => err);
       if (!data.message && Array.isArray(data) && data.length > 0) {
         setAccount(data[0]);
         sessionStorage.setItem('walletAddress', data[0]);

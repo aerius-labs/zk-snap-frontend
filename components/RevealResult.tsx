@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function RevealResult({ proposalId, endTime }: any) {
-  const [countdown, setCountdown] = useState<number | null>(null);
+  const [countdown, setCountdown] = useState<number>(0);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -13,7 +13,7 @@ export default function RevealResult({ proposalId, endTime }: any) {
         const remainingTimeInSeconds = Math.floor((endTimeInMilliseconds - currentTime) / 1000);
         setCountdown(remainingTimeInSeconds);
       } else {
-        setCountdown(null);
+        setCountdown(0);
       }
     };
     updateCountdown();
@@ -37,7 +37,7 @@ export default function RevealResult({ proposalId, endTime }: any) {
   const countdownData = formatCountdown(countdown);
   return (
     <div className="flex flex-col items-center mb-4">
-      {countdown !== null ? (
+      {countdown !== 0 ? (
         <div className="flex gap-4">
             <div className="flex flex-col items-center">
                 <p className="border border-custom-purple rounded-md text-custom-purple p-1 tracking-widest">{countdownData.hours}</p>

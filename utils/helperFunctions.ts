@@ -31,11 +31,11 @@ export function getTimeDifference(targetTime: any) {
 
 export function formatDate(inputDateStr: any) {
   const options = {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-    hour: 'numeric',
-    minute: '2-digit',
+    year: 'numeric' as const,
+    month: 'short' as const,
+    day: '2-digit' as const,
+    hour: 'numeric' as const,
+    minute: '2-digit' as const,
   };
 
   const date = new Date(inputDateStr);
