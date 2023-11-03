@@ -1,10 +1,16 @@
 import React from 'react'
 import ProposalPageBar from '@/components/ProposalPageBar';
-import Vote from '@/components/Vote';
+// import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
 import DiscussionItem from '@/components/Discussion';
 import { GetServerSideProps } from 'next';
 import RevealResult from '@/components/RevealResult';
+import dynamic from 'next/dynamic';
+
+const Vote = dynamic(() => import('../../components/Vote'), {
+  loading: () => <p className='mt-4'>Loading...</p>,
+  ssr: false
+});
 
 export default function Discussions({id, proposalDetails}:any) {
   const discussions = [

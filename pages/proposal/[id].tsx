@@ -1,10 +1,16 @@
 import Image from 'next/image';
 import ProposalPageBar from '@/components/ProposalPageBar';
-import Vote from '@/components/Vote';
+// import Vote from '@/components/Vote';
 import Slider from '@/components/Slider';
 import { GetServerSideProps } from 'next';
 import { getTimeDifference } from '@/utils/helperFunctions';
 import RevealResult from '@/components/RevealResult';
+import dynamic from 'next/dynamic';
+
+const Vote = dynamic(() => import('../../components/Vote'), {
+  loading: () => <p>Loading...</p>,
+  ssr: false
+});
 export default function Proposal({id, proposalDetails}:any) {
     return (
         <main
