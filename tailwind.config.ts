@@ -19,6 +19,15 @@ const config: Config = {
       fontFamily: {
         'good-times': ['Good Times', 'sans'],
       },
+      keyframes: {
+        slide: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '100% 0' },
+        },
+      },
+      animation: {
+        slide: 'slide 1s linear infinite',
+      },
     },
   },
   plugins: [],

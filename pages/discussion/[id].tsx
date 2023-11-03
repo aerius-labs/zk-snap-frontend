@@ -6,9 +6,10 @@ import DiscussionItem from '@/components/Discussion';
 import { GetServerSideProps } from 'next';
 import RevealResult from '@/components/RevealResult';
 import dynamic from 'next/dynamic';
+import SkeletonLoader from '@/components/Skeleton';
 
 const Vote = dynamic(() => import('../../components/Vote'), {
-  loading: () => <p className='mt-4'>Loading...</p>,
+  loading: () => <SkeletonLoader/>,
   ssr: false
 });
 
