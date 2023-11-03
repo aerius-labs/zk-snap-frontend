@@ -7,15 +7,17 @@ import 'react-datetime/css/react-datetime.css';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { Moment } from 'moment';
+import { useDispatch } from 'react-redux';
+import { setAccountAddress } from '../../../slice';
 
 export default function Proposal({id}:any) {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [startTime, setStartTime] = useState<string | Moment | undefined>(undefined);
   const [endTime, setEndTime] = useState<string | Moment | undefined>(undefined);
-  const [accountAddress, setAccountAddress] = useState<string | null>('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   function combineDateTime(date:any, time:any) {
@@ -37,16 +39,15 @@ export default function Proposal({id}:any) {
       if(accounts.length == 0){
         const data = await window.mina.requestAccounts().catch((err:any)=> err);
         if (!data.message && Array.isArray(data) && data.length > 0) {
+          dispatch(setAccountAddress(data[0]));
           sessionStorage.setItem('walletAddress', data[0]);
           accountValue = data[0];
-          setAccountAddress(data[0]);
         }else{
           alert('Please connect first');
           return;
         }
       }else{
         accountValue = sessionStorage.getItem('walletAddress');
-        setAccountAddress(accountValue)
       }
     }
     const start_time = combineDateTime(startDate, startTime);

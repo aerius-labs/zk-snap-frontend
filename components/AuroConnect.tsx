@@ -1,9 +1,14 @@
 // components/AuroConnect.js
 
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setAccountAddress } from '../slice';
+import { useSelector } from 'react-redux';
+import { selectAccountAddress } from '../slice';
 
 function AuroConnect() {
-  const [account, setAccount] = useState('');
+  const dispatch = useDispatch();
+  const address = useSelector(selectAccountAddress);
   const [network, setNetwork] = useState('');
 
   useEffect(() => {
@@ -12,7 +17,7 @@ function AuroConnect() {
       try {
         const fetchedAccounts = await window.mina.getAccounts();
         if (storedWalletAddress && fetchedAccounts.length>0) {
-          setAccount(storedWalletAddress);
+          dispatch(setAccountAddress(storedWalletAddress));
         }
       } catch (error) {
         console.error('Error fetching accounts:', error);
@@ -31,7 +36,7 @@ function AuroConnect() {
 
   const handleNewAccounts = (newAccounts: any) => {
     if (Array.isArray(newAccounts) && newAccounts.length > 0) {
-      setAccount(newAccounts[0]);
+      dispatch(setAccountAddress(newAccounts[0]));
       sessionStorage.setItem('walletAddress', newAccounts[0]);
     }
   };
@@ -40,7 +45,7 @@ function AuroConnect() {
     if (window.mina) {
       const data = await window.mina.requestAccounts().catch((err: any) => err);
       if (!data.message && Array.isArray(data) && data.length > 0) {
-        setAccount(data[0]);
+        dispatch(setAccountAddress(data[0]));
         sessionStorage.setItem('walletAddress', data[0]);
       }
     }
@@ -60,7 +65,7 @@ function AuroConnect() {
           onClick={connectAuroWallet} 
           className="text-xs text-gray-200 border p-2 rounded-3xl border-custom-purple font-good-times"
         >
-            {account ? account.slice(0,6) + '...' + account.slice(-6): 'CONNECT WALLET'}
+            {address ? address.slice(0,6) + '...' + address.slice(-6): 'CONNECT WALLET'}
         </button>
     </div>
   );
