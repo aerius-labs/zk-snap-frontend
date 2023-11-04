@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { Field, PublicKey, Signature } from 'o1js';
 import { getRandomNBitNumber, uuidToBigInt, bs58ToBigInt } from '@/utils/helperFunctions';
 import * as paillierBigint from 'paillier-bigint'
+import { useDispatch, useSelector } from 'react-redux';
+import { setDisabledProposals, selectDisabledProposals } from '../slice';
 
 export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, startTime, endTime}:any) {
+  const dispatch = useDispatch();
+  const disabledProposals = useSelector(selectDisabledProposals);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isVoteDisabled, setIsVoteDisabled] = useState(false);
   const [activeButton, setActiveButton] = useState(0);
-  const [accountAddress, setAccountAddress] = useState('');
-  const [disabledProposalIds, setDisabledProposalIds] = useState<string[]>([]);
   const [alreadyVotedProposalIds, setAlreadyVotedProposalIds] = useState<string[]>([]);
 
   const handleButtonClick = () => {
@@ -24,16 +26,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
   }
   const workerInstance = useRef<Worker | null>(null);
   useEffect(() => {
-    const storedWalletAddress = sessionStorage.getItem('walletAddress');
-    const disabledProposals = localStorage.getItem('disabledProposalIds');
     const alreadyVotedIds = localStorage.getItem('alreadyVotedProposalIds');
-    if (storedWalletAddress) {
-      setAccountAddress(storedWalletAddress);
-    }
-    if(disabledProposals){
-      const parsedDisabledProposalIds = JSON.parse(disabledProposals);
-      setDisabledProposalIds(parsedDisabledProposalIds);
-    }
     if(alreadyVotedIds){
       const parsedAlreadyVotedIds = JSON.parse(alreadyVotedIds);
       setAlreadyVotedProposalIds(parsedAlreadyVotedIds)
@@ -54,7 +47,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
       alert('Voting Closed');
       return;
     }
-    if((disabledProposalIds.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
+    if((disabledProposals.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
       setIsVoteDisabled(true);
       await import('./proof.worker.js').then((WorkerModule:any) => {
         workerInstance.current = new WorkerModule.default() as Worker;
@@ -69,9 +62,8 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
             body: event.data,
           });
           workerInstance.current?.terminate();
-          const updatedDisabledProposalIds = disabledProposalIds.filter((id) => id !== proposalId);
-          setDisabledProposalIds(updatedDisabledProposalIds);
-          localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
+          const updatedDisabledProposalIds = disabledProposals.filter((id:any) => id !== proposalId);
+          dispatch(setDisabledProposals(updatedDisabledProposalIds));
           const updatedVotedIds = [...alreadyVotedProposalIds, proposalId];
           setAlreadyVotedProposalIds(updatedVotedIds);
           localStorage.setItem('alreadyVotedProposalIds', JSON.stringify(updatedVotedIds))
@@ -80,9 +72,8 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
         workerInstance.current.onerror = (error: any) => {
           console.error("Worker error:", error);
           workerInstance.current?.terminate();
-          const updatedDisabledProposalIds = disabledProposalIds.filter((id) => id !== proposalId);
-          setDisabledProposalIds(updatedDisabledProposalIds);
-          localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
+          const updatedDisabledProposalIds = disabledProposals.filter((id:any) => id !== proposalId);
+          dispatch(setDisabledProposals(updatedDisabledProposalIds));
         };
       });
       setIsVoteDisabled(false)
@@ -93,7 +84,6 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
         const data = await window.mina.requestAccounts().catch((err:any) => err);
         if (!data.message && Array.isArray(data) && data.length > 0) {
           sessionStorage.setItem('walletAddress', data[0]);
-          setAccountAddress(data[0]);
         }
       }else{
         sessionStorage.setItem('walletAddress', accounts[0]);
@@ -163,9 +153,8 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
           console.log('Prepared Data', inputData)
           console.log(membersRoot)
           if (workerInstance.current) {
-            const updatedDisabledProposalIds = [...disabledProposalIds, proposalId];
-            setDisabledProposalIds(updatedDisabledProposalIds);
-            localStorage.setItem('disabledProposalIds', JSON.stringify(updatedDisabledProposalIds));
+            const updatedDisabledProposalIds = [...disabledProposals, proposalId];
+            dispatch(setDisabledProposals(updatedDisabledProposalIds));
             console.log('Inside workerInstance');
             workerInstance.current.postMessage(inputData);
           }
@@ -177,7 +166,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
       }
     }
   }else{
-    if(disabledProposalIds.length>0){
+    if(disabledProposals.length>0){
       alert("Proof Generation is already running for some post!");
     }else{
       alert("You have already Voted");
@@ -186,8 +175,8 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
 }
   return (
     <div className="flex flex-col items-center mb-4">
-      <button disabled={disabledProposalIds.length>0 || alreadyVotedProposalIds.includes(proposalId)} onClick={handleButtonClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
-        {disabledProposalIds.includes(proposalId)?'VOTING...':alreadyVotedProposalIds.includes(proposalId)?'VOTED':'VOTE'}
+      <button disabled={disabledProposals.length>0 || alreadyVotedProposalIds.includes(proposalId)} onClick={handleButtonClick} className={`text-lg w-full tracking-widest font-good-times p-4 rounded-xl bg-green-500 flex justify-center items-center`}>
+        {disabledProposals.includes(proposalId)?'VOTING...':alreadyVotedProposalIds.includes(proposalId)?'VOTED':'VOTE'}
       </button>
       {isModalOpen && (
         <div id="modal" onClick={handleOutsideClick} className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">

@@ -1,10 +1,8 @@
 // components/AuroConnect.js
 
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setAccountAddress } from '../slice';
-import { useSelector } from 'react-redux';
-import { selectAccountAddress } from '../slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAccountAddress, selectAccountAddress } from '../slice';
 
 function AuroConnect() {
   const dispatch = useDispatch();
