@@ -60,7 +60,6 @@ export default function ProofGenerator() {
 
   async function handleButtonClick() {
     try {
-      console.log('Generating Proof');
       const inputData = {
         nullifierStr: JSON.stringify(userData.nullifierStr), 
         encryptionPublicKeyStr: JSON.stringify(userData.encryptionPublicKeyStr), 
@@ -74,8 +73,8 @@ export default function ProofGenerator() {
         userBalanceStr: userData.userBalanceStr.toString(), 
         memberProofStr: JSON.stringify(userData.membersProofStr)
       };
-      console.log('Prepared Data', inputData)
       generateUserProof(inputData).then((res)=>{
+        //will remove this after posting the proof
         console.log("User Proof :", res);
       })
     } catch (error) {
@@ -87,9 +86,7 @@ export default function ProofGenerator() {
       className={`items-center justify-center ${inter.className}`}
     >
       <button className='text-gray-200' onClick={() => {
-        if (typeof window !== 'undefined') {
           handleButtonClick();
-        }
       }}>Vote</button>
     </main>
   )
