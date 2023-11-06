@@ -11,6 +11,10 @@ export interface DaoProposal {
     end_time: string;
     id: string;
     title: string;
+    logo: string | null | undefined;
+    quorumReached: number | undefined;
+    winningAmount: number | undefined;
+    winnerCount: number | undefined;
 }
 
 export interface Dao {

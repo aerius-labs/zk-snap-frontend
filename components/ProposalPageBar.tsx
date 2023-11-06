@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from "next/router";
 
-function ProposalPageBar({id}:any) {
+function ProposalPageBar({id}: {id:string}) {
     const router = useRouter();
     return (
     <div className="w-full mt-4">

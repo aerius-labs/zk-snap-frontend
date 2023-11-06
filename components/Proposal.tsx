@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { getTimeDifference } from '@/utils/helperFunctions';
-function ProposalItem({proposal}:any) {
+import { DaoProposal } from '@/interfaces';
+function ProposalItem({proposal}:{proposal: DaoProposal}) {
     return (
         <div className="w-full">
             <div className='flex md:px-20'>
@@ -23,7 +24,7 @@ function ProposalItem({proposal}:any) {
                     </p>
 
                     <div className={`flex flex-col md:flex-row gap-2 ml-4 md:ml-0`}>
-                        <p className={`text-gray-200 border font-bold rounded-full flex items-center mt-2 px-2 text-xs ${proposal.endsIn!=='Ended'? 'bg-green-500 border-green-500 text-black':'bg-gray-600 text-gray-200 border-gray-600'}`}>
+                        <p className={`text-gray-200 border font-bold rounded-full flex items-center mt-2 px-2 text-xs bg-green-500 border-green-500`}>
                             {
                                 `${getTimeDifference(proposal.end_time)}`
                             }

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import CommunityBlock from '@/components/CommunityBlock';
 import { Community } from '@/interfaces';
 
-export default function Home({daos}:any) {
+export default function Home({daos}:{daos: Community[]}) {
   return (
     <main
       className={`min-h-screen items-center justify-center py-12 ${inter.className}`}

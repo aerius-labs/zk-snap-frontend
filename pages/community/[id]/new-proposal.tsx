@@ -10,7 +10,7 @@ import { Moment } from 'moment';
 import { useDispatch } from 'react-redux';
 import { setAccountAddress } from '../../../slice';
 
-export default function Proposal({id}:any) {
+export default function Proposal({id}:{id:string}) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

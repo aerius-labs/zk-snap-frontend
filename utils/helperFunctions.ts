@@ -1,8 +1,8 @@
 import * as bs58 from 'bs58';
-export function getTimeDifference(targetTime: any) {
-    const targetDate:any = new Date(targetTime);
-    const currentDate:any = new Date();
-    let differenceInMilliseconds = (targetDate - currentDate);
+export function getTimeDifference(targetTime: string) {
+    const targetDate: Date = new Date(targetTime);
+    const currentDate:  Date = new Date();
+    let differenceInMilliseconds = (targetDate.getTime() - currentDate.getTime());
     // If difference is negative, the target time is in the past
     if (differenceInMilliseconds < 0) {
       return "Ended";
@@ -29,7 +29,7 @@ export function getTimeDifference(targetTime: any) {
     }
 }
 
-export function formatDate(inputDateStr: any) {
+export function formatDate(inputDateStr: string) {
   const options = {
     year: 'numeric' as const,
     month: 'short' as const,
