@@ -1,4 +1,3 @@
-import * as bs58 from 'bs58';
 export function getTimeDifference(targetTime: string) {
     const targetDate: Date = new Date(targetTime);
     const currentDate:  Date = new Date();
