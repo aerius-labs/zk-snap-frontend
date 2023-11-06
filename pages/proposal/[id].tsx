@@ -19,7 +19,7 @@ export default function Proposal({id, proposalDetails}:any) {
         >
             <div className='flex flex-col md:flex-row gap-12 mt-12'>
                 <div className='text-gray-200 w-full md:w-3/4'>
-                    <ProposalPageBar id={id} />
+                    <ProposalPageBar id={id} daoId={proposalDetails.daoId} />
                     <div className='flex items-center gap-3 text-lg'>
                         <Image src={'/community_logo.png'} alt='Community Logo' width={30} height={30} />
                         <p className='font-good-times'>{proposalDetails.daoName} by {proposalDetails.creatorID.slice(0,5) + '...' + proposalDetails.creatorID.slice(-5)}</p>

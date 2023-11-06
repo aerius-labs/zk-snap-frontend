@@ -37,7 +37,7 @@ export default function Discussions({id, proposalDetails}:any) {
         >
             <div className='flex flex-col md:flex-row gap-12 mt-12'>
                 <div className='text-gray-200 w-full md:w-3/4'>
-                    <ProposalPageBar id={id} />
+                    <ProposalPageBar id={id} daoId={proposalDetails.daoId} />
                     {
                         discussions.map((discussion, idx)=>(
                             <React.Fragment key={idx}>
