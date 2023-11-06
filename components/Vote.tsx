@@ -37,16 +37,16 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
     const currentTime = new Date();
     const endTimeOfProposal = new Date(endTime);
     
-    // if(activeButton===0){
-    //   alert('Please select any option either YES or NO');
-    //   return;
-    // }else if(startTimeOfProposal>currentTime){
-    //   alert('Voting is not open yet');
-    //   return;
-    // }else if(endTimeOfProposal<currentTime){
-    //   alert('Voting Closed');
-    //   return;
-    // }
+    if(activeButton===0){
+      alert('Please select any option either YES or NO');
+      return;
+    }else if(startTimeOfProposal>currentTime){
+      alert('Voting is not open yet');
+      return;
+    }else if(endTimeOfProposal<currentTime){
+      alert('Voting Closed');
+      return;
+    }
     if((disabledProposals.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
       setIsVoteDisabled(true);
       await import('./proof.worker.js').then((WorkerModule:any) => {
