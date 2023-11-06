@@ -37,16 +37,16 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
     const currentTime = new Date();
     const endTimeOfProposal = new Date(endTime);
     
-    if(activeButton===0){
-      alert('Please select any option either YES or NO');
-      return;
-    }else if(startTimeOfProposal>currentTime){
-      alert('Voting is not open yet');
-      return;
-    }else if(endTimeOfProposal<currentTime){
-      alert('Voting Closed');
-      return;
-    }
+    // if(activeButton===0){
+    //   alert('Please select any option either YES or NO');
+    //   return;
+    // }else if(startTimeOfProposal>currentTime){
+    //   alert('Voting is not open yet');
+    //   return;
+    // }else if(endTimeOfProposal<currentTime){
+    //   alert('Voting Closed');
+    //   return;
+    // }
     if((disabledProposals.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
       setIsVoteDisabled(true);
       await import('./proof.worker.js').then((WorkerModule:any) => {
@@ -181,13 +181,22 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
       {isModalOpen && (
         <div id="modal" onClick={handleOutsideClick} className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-black w-3/4 md:w-1/4 flex flex-col justify-center rounded-lg py-8 px-10 text-center">
-            <button
-                onClick={handleVote}
-                disabled={isVoteDisabled}
-                className={`block bg-green-500 mb-4 font-good-times cursor-pointer p-2 text-gray-500 rounded-md`}
-            >
+            {isVoteDisabled? 
+              <div
+                className="bg-gradient-to-r from-gray-500 via-gray-400 to-gray-300 animate-slide block bg-green-500 mb-4 font-good-times cursor-pointer p-2 text-gray-500 rounded-md"
+                aria-busy="true"
+                aria-live="polite"
+              >
+                Loading...
+              </div> :
+              <button
+                  onClick={handleVote}
+                  disabled={isVoteDisabled}
+                  className={`block bg-green-500 mb-4 font-good-times cursor-pointer p-2 text-gray-500 rounded-md`}
+              >
                 VOTE
-            </button>
+              </button>
+            }
             <button
                 onClick={() => handleOptionClick(2)}
                 className={`block mb-4 font-good-times cursor-pointer p-2 border-b border-custom-purple text-gray-500 rounded-md ${activeButton === 2 ? 'text-white bg-custom-purple' : ''}`}
