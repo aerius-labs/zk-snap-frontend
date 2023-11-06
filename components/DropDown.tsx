@@ -52,7 +52,7 @@ function Dropdown() {
     }, []);
 
     // handler for fetching communities and proposals according to selected category
-    const handleOptionClick = async (value: any) => {
+    const handleOptionClick = async (value: string) => {
         setSelectedOption(value);
         setIsOpen(false);
 

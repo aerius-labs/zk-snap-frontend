@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function RevealResult({ proposalId, endTime }: any) {
+export default function RevealResult({ proposalId, endTime }: {proposalId:string, endTime:string}) {
   const [countdown, setCountdown] = useState<number>(0);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);

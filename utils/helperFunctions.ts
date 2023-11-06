@@ -56,15 +56,3 @@ export const getRandomNBitNumber = (bits: number) => {
   }
   return randomBigInt;
 };
-
-export const bs58ToBigInt = (address:any) => {
-  const bytes = bs58.decode(address);
-  const byteArray = Array.from(bytes);
-  let result = BigInt(0);
-  for (let i = 0; i < byteArray.length; i++) {
-    result = result * BigInt(256) + BigInt(byteArray[i]);
-  }
-
-  return result;
-};
-

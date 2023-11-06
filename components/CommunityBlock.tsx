@@ -1,6 +1,7 @@
 import Image from 'next/image';
+import { Community } from '@/interfaces';
 
-function CommunityBlock({community}: any) {
+function CommunityBlock({community}: {community: Community}) {
     return (
         <div className="relative hover:cursor-pointer group">
             <div className="group-hover:blur-[2px] transition duration-300 ease-in-out flex items-center justify-center">

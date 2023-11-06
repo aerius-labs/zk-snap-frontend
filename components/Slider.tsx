@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { formatDate } from '@/utils/helperFunctions';
 
-export default function Slider({startTime, endTime}: any) {
+export default function Slider({startTime, endTime}: {startTime:string, endTime:string}) {
   const [activeSlide, setActiveSlide] = useState(1);
   return (
     <div className="">
@@ -29,7 +29,7 @@ export default function Slider({startTime, endTime}: any) {
 }
 
 
-export function Slide1({startTime, endTime}:any) {
+export function Slide1({startTime, endTime}:{startTime:string, endTime:string}) {
     return (
       <div className="flex flex-col items-center space-y-4">
         {/* BASIC INFO */}
@@ -99,11 +99,11 @@ export function Slide2() {
     );
 }
 
-export function ShowInfo(props:any) {
+export function ShowInfo({property, value}:{property:string, value:string}) {
   return (
     <div className='text-xs flex justify-between mt-2 tracking-wider'>
-      <p className='text-gray-400'>{props?.property}</p>
-      <p>{props?.value}</p>
+      <p className='text-gray-400'>{property}</p>
+      <p>{value}</p>
     </div>
   )
 }

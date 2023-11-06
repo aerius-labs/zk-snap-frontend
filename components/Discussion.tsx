@@ -1,6 +1,12 @@
 import Image from 'next/image';
 
-function DiscussionItem({discussion}:any) {
+interface Discussion {
+    logo: string;
+    title: string;
+    description: string;
+}
+
+function DiscussionItem({discussion}:{ discussion: Discussion }) {
     return (
         <div className="w-full">
             <hr className='text-gray-200 mb-6'/>

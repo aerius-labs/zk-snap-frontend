@@ -1,7 +1,7 @@
 import Dropdown from '@/components/DropDown';
 import Link from 'next/link';
 
-function CommunityPageBar({community_id}: any) {
+function CommunityPageBar({community_id}: { community_id: string }) {
     return (
     <div className="w-full">
     <div className='md:mt-0 mt-4 flex items-center justify-center mb-4 flex-row flex-wrap px-20 gap-4 md:justify-between'>

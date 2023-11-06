@@ -3,6 +3,7 @@ const inter = Inter({ subsets: ['latin'] })
 import HomePageBar from '@/components/HomePageBar';
 import Link from 'next/link';
 import CommunityBlock from '@/components/CommunityBlock';
+import { Community } from '@/interfaces';
 
 export default function Home({daos}:any) {
   return (
@@ -12,7 +13,7 @@ export default function Home({daos}:any) {
       <HomePageBar />
       <div className='flex z-10 gap-16 p-16 flex-wrap justify-center items-center'>
         {
-          daos.map((listItem: any, idx: number) => (
+          daos.map((listItem: Community, idx: number) => (
             <Link key={idx} href={`/community/${listItem.id}`}>
               <CommunityBlock key={listItem.id} community={listItem}/>
             </Link>

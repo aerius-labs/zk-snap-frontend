@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Field, PublicKey, Signature } from 'o1js';
-import { getRandomNBitNumber, uuidToBigInt, bs58ToBigInt } from '@/utils/helperFunctions';
+import { getRandomNBitNumber, uuidToBigInt } from '@/utils/helperFunctions';
 import * as paillierBigint from 'paillier-bigint'
 import { useDispatch, useSelector } from 'react-redux';
 import { setDisabledProposals, selectDisabledProposals } from '../slice';

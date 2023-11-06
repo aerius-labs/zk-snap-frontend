@@ -3,8 +3,9 @@ import Image from 'next/image';
 import CommunityPageBar from '@/components/CommunityPageBar';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
+import { Dao, DaoProposal } from '@/interfaces';
 
-export default function Community({ id, daoDetails }: any) {
+export default function Community({ id, daoDetails }: {id: string, daoDetails: Dao}) {
     // community proposal list
     const list = daoDetails.daoProposals;
     return (
@@ -32,7 +33,7 @@ export default function Community({ id, daoDetails }: any) {
             <CommunityPageBar community_id={id}/>
             <div className='flex z-10 flex-wrap justify-center items-center'>
                 {
-                    list.map((listItem: any, idx: any) => (
+                    list.map((proposal: DaoProposal, idx) => (
                         <div key={idx}>
                             <hr className='absolute mt-12 border-2 border-custom-purple w-full md:hidden'/>
                             <div className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
@@ -50,15 +51,15 @@ export default function Community({ id, daoDetails }: any) {
                                     </filter>
                                     </defs>
                                 </svg>
-                                <Link href={`/proposal/${listItem.id}`}>
+                                <Link href={`/proposal/${proposal.id}`}>
                                     <div className="p-4 md:p-0 relative z-20 mt-7 flex flex-col justify-center">
                                         <div className='flex gap-2 items-center font-good-times mb-1 text-sm md:text-lg text-gray-200 mx-4 md:mx-20 mt-8 md:mt-8'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 18 16" fill="none">
                                                 <circle cx="8.979" cy="9.5" r="8.66406" fill="#D9D9D9"/>
                                             </svg>
-                                            {listItem?.creator.slice(0,5)+'...'+listItem?.creator.slice(-5)}
+                                            {proposal?.creator.slice(0,5)+'...'+proposal?.creator.slice(-5)}
                                         </div>
-                                        <ProposalItem proposal={listItem}/>
+                                        <ProposalItem proposal={proposal}/>
                                     </div>
                                 </Link>
                             </div>
