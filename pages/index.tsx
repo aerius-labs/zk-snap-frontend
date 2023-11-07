@@ -4,13 +4,15 @@ import HomePageBar from '@/components/HomePageBar';
 import Link from 'next/link';
 import CommunityBlock from '@/components/CommunityBlock';
 import { Community } from '@/interfaces';
+import { useState } from 'react';
 
-export default function Home({daos}:{daos: Community[]}) {
+export default function Home({allDaos}:{allDaos: Community[]}) {
+  const [daos, setDaos] = useState(allDaos)
   return (
     <main
       className={`min-h-screen items-center justify-center py-12 ${inter.className}`}
     >
-      <HomePageBar />
+      <HomePageBar allItems={allDaos} setItems={setDaos}/>
       <div className='flex z-10 gap-16 p-16 flex-wrap justify-center items-center'>
         {
           daos.map((listItem: Community, idx: number) => (
@@ -29,7 +31,7 @@ export async function getServerSideProps() {
   const daos = await response.json();
   return {
     props: {
-      daos
+      allDaos: daos
     }
   };
 }

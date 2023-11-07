@@ -12,7 +12,9 @@ const SearchBox = ({setItems, allItems}:{allItems:any, setItems:any}) => {
     }else{
       const lowercasedFilter = searchValue.toLowerCase();
       const filteredProposals = allItems.filter((item:any) => {
-        return item.title.toLowerCase().trim().replace(/[^a-zA-Z0-9]/g, '').includes(lowercasedFilter);
+        let valueToSearch = item.title;
+        if(valueToSearch===undefined) valueToSearch=item.name;
+        return valueToSearch.toLowerCase().trim().replace(/[^a-zA-Z0-9]/g, '').includes(lowercasedFilter);
       });
       setItems(filteredProposals);
     }
