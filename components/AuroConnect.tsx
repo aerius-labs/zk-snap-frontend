@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAccountAddress, selectAccountAddress } from '../slice';
-
+import { toast } from 'react-hot-toast';
 function AuroConnect() {
   const dispatch = useDispatch();
   const address = useSelector(selectAccountAddress);
@@ -44,6 +44,7 @@ function AuroConnect() {
       const data = await window.mina.requestAccounts().catch((err: any) => err);
       if (!data.message && Array.isArray(data) && data.length > 0) {
         dispatch(setAccountAddress(data[0]));
+        toast.success('Connected to Auro Wallet');
         sessionStorage.setItem('walletAddress', data[0]);
       }
     }
@@ -51,7 +52,7 @@ function AuroConnect() {
 
   const connectAuroWallet = async () => {
     if (!window.mina) {
-      alert("No provider was found. Please install Auro Wallet.");
+      toast.error('No provider was found. Please install Auro Wallet.');
     } else {
       await initAccount();
     }
