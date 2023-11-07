@@ -1,8 +1,8 @@
 import { Inter } from 'next/font/google'
-import CommunityBlock from '@/components/CommunityBlock';
+const inter = Inter({ subsets: ['latin'] })
 import HomePageBar from '@/components/HomePageBar';
 import Link from 'next/link';
-const inter = Inter({ subsets: ['latin'] })
+import CommunityBlock from '@/components/CommunityBlock';
 
 export default function Home({daos}:any) {
   return (
