@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ProposalItem from '@/components/Proposal';
 import HomePageBar from '@/components/HomePageBar';
-export default function Proposals({proposals}:any) {
+export default function Proposals({allProposals}:any) {
+  const [proposals, setProposals] = useState(allProposals)
   return (
     <main
       className={`min-h-screen items-center justify-center py-12`}
     >
-      <HomePageBar />
+      <HomePageBar allItems={allProposals} setItems={setProposals} />
       <div className='flex z-10 gap-8 flex-wrap justify-center items-center'>
         {
           proposals.map((listItem:any, idx:any) => (
@@ -25,7 +26,7 @@ export async function getServerSideProps() {
   const proposals = await response.json();
   return {
     props: {
-      proposals
+      allProposals: proposals
     }
   };
 }
