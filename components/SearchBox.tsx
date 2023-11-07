@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 
 const SearchBox = ({setItems, allItems}:{allItems:any, setItems:any}) => {
   const [isFocused, setIsFocused] = useState(false);
-
-  // Set the width to the desired value when focused
   const inputWidth = isFocused ? 'w-48' : 'w-0';
-  
+
   const handleSearch = (searchValue: string) => {
     if(searchValue===null || searchValue===undefined || searchValue==''){
       setItems(allItems);
@@ -22,7 +20,6 @@ const SearchBox = ({setItems, allItems}:{allItems:any, setItems:any}) => {
 
   return (
     <div className="relative flex items-center">
-      {/* Conditionally render the SVG based on focus */}
       {!isFocused && (
         <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
           <svg
@@ -54,7 +51,6 @@ const SearchBox = ({setItems, allItems}:{allItems:any, setItems:any}) => {
           if (e.key === "Enter") {
             console.log(e.target.value)
             handleSearch(e.target.value)
-            // Trigger search logic here
           }
         }}
       />
