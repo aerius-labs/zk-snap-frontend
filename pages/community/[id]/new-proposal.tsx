@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { Moment } from 'moment';
 import { useDispatch } from 'react-redux';
 import { setAccountAddress } from '../../../slice';
-
+import { toast } from 'react-hot-toast';
 export default function Proposal({id}:{id:string}) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
@@ -40,10 +40,11 @@ export default function Proposal({id}:{id:string}) {
         const data = await window.mina.requestAccounts().catch((err:any)=> err);
         if (!data.message && Array.isArray(data) && data.length > 0) {
           dispatch(setAccountAddress(data[0]));
+          toast.success('Connected to the wallet');
           sessionStorage.setItem('walletAddress', data[0]);
           accountValue = data[0];
         }else{
-          alert('Please connect first');
+          toast.error('Please connect to the wallet');
           return;
         }
       }else{
@@ -52,7 +53,6 @@ export default function Proposal({id}:{id:string}) {
     }
     const start_time = combineDateTime(startDate, startTime);
     const end_time = combineDateTime(endDate, endTime);
-    // Handle form submission logic here
     const response = await fetch(`${process.env.FRONTENDURL}/api/postProposal`, {
         method: 'POST',
         headers: {
@@ -70,8 +70,12 @@ export default function Proposal({id}:{id:string}) {
   
       const result = await response.json();
       setLoading(false);
-      console.log(result);
+      if(result.statusCode==404 || result.statusCode==400){
+        toast.error(result.message);
+        return;
+      }
       router.push(`/community/${id}`);
+      toast.success('Proposal created successfully!');
   };
 
   return (
@@ -140,7 +144,7 @@ export default function Proposal({id}:{id:string}) {
                 />
             </div>
             <div className='w-full'>
-                <button type="submit" disabled={loading} className="w-full py-2 mt-4 border text-white rounded-md hover:ring-2 hover:ring-custom-purple">Submit</button>
+                <button type="submit" disabled={loading} className="w-full py-2 mt-4 border text-white rounded-md hover:ring-2 hover:ring-custom-purple">Submit{loading && 'ting...'}</button>
             </div>
         </form>
     </div>
