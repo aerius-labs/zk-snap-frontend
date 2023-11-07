@@ -4,6 +4,7 @@ import { getRandomNBitNumber, uuidToBigInt } from '@/utils/helperFunctions';
 import * as paillierBigint from 'paillier-bigint'
 import { useDispatch, useSelector } from 'react-redux';
 import { setDisabledProposals, selectDisabledProposals } from '../slice';
+import { toast } from 'react-hot-toast';
 
 export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, startTime, endTime}:any) {
   const dispatch = useDispatch();
@@ -38,13 +39,13 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
     const endTimeOfProposal = new Date(endTime);
     
     if(activeButton===0){
-      alert('Please select any option either YES or NO');
+      toast.error('Please select any option')
       return;
     }else if(startTimeOfProposal>currentTime){
-      alert('Voting is not open yet');
+      toast.error('Voting is not open yet')
       return;
     }else if(endTimeOfProposal<currentTime){
-      alert('Voting Closed');
+      toast.error('Voting is Closed');
       return;
     }
     if((disabledProposals.length === 0 ) && !alreadyVotedProposalIds.includes(proposalId)){
@@ -61,16 +62,17 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
             },
             body: event.data,
           });
+          toast.success('Your vote has been submitted successfully!')
           workerInstance.current?.terminate();
           const updatedDisabledProposalIds = disabledProposals.filter((id:any) => id !== proposalId);
           dispatch(setDisabledProposals(updatedDisabledProposalIds));
           const updatedVotedIds = [...alreadyVotedProposalIds, proposalId];
           setAlreadyVotedProposalIds(updatedVotedIds);
-          localStorage.setItem('alreadyVotedProposalIds', JSON.stringify(updatedVotedIds))
-
+          localStorage.setItem('alreadyVotedProposalIds', JSON.stringify(updatedVotedIds));
         };
         workerInstance.current.onerror = (error: any) => {
           console.error("Worker error:", error);
+          toast.error('Error occured while voting!');
           workerInstance.current?.terminate();
           const updatedDisabledProposalIds = disabledProposals.filter((id:any) => id !== proposalId);
           dispatch(setDisabledProposals(updatedDisabledProposalIds));
@@ -84,6 +86,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
         const data = await window.mina.requestAccounts().catch((err:any) => err);
         if (!data.message && Array.isArray(data) && data.length > 0) {
           sessionStorage.setItem('walletAddress', data[0]);
+          toast.success('Connected to Auro Wallet');
         }
       }else{
         sessionStorage.setItem('walletAddress', accounts[0]);
@@ -112,6 +115,7 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
         console.log('Encrypted Vote Value', encryptedVote);
         const response = await fetch(`${process.env.FRONTENDURL}/api/getMerkleProof?daoId=${daoId}&memberPublicKey=${accountAddressOfUser}`)
         if (!response.ok) {
+          toast.error('Network response was no ok');
           throw new Error('Network response was not ok');
           return;
         }
@@ -156,20 +160,22 @@ export default function Vote({daoId, proposalId, membersRoot, encryptionKeys, st
             const updatedDisabledProposalIds = [...disabledProposals, proposalId];
             dispatch(setDisabledProposals(updatedDisabledProposalIds));
             console.log('Inside workerInstance');
+            toast.success('Voting is in progress!');
             workerInstance.current.postMessage(inputData);
           }
         } catch (error) {
+            toast.error('Error while generating proof. You can try again');
             console.error("Error generating proof:", error);
         }
       }else{
-        console.error("No wallet Address found");
+        toast.error('Please connect to the wallet');
       }
     }
   }else{
     if(disabledProposals.length>0){
-      alert("Proof Generation is already running for some post!");
+      toast.error('Proof Generation is already running for some post!');
     }else{
-      alert("You have already Voted");
+      toast.error('You have already voted');
     }
   }
 }
