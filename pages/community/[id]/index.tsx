@@ -4,10 +4,12 @@ import CommunityPageBar from '@/components/CommunityPageBar';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { Dao, DaoProposal } from '@/interfaces';
+import { use, useState } from 'react';
 
 export default function Community({ id, daoDetails }: {id: string, daoDetails: Dao}) {
     // community proposal list
-    const list = daoDetails.daoProposals;
+    const [proposals, setProposals] = useState(daoDetails.daoProposals)
+    const [allProposals, setAllProposals] = useState(daoDetails.daoProposals);
     return (
         <main
         className={`min-h-screen items-center justify-center py-12`}
@@ -30,10 +32,10 @@ export default function Community({ id, daoDetails }: {id: string, daoDetails: D
                 </div>
                 <p className='text-gray-600 text-lg -ml-3 font-good-times'>{daoDetails?.daoMemberCount} MEMBERS</p>
             </div>
-            <CommunityPageBar community_id={id}/>
-            <div className='flex z-10 flex-wrap justify-center items-center'>
-                {
-                    list.map((proposal: DaoProposal, idx) => (
+            <CommunityPageBar community_id={id} allProposals={allProposals} setProposals={setProposals}/>
+            <div className='flex z-10 flex-wrap md:justify-center items-center'>
+                { proposals.length!==0 ?
+                    proposals.map((proposal: DaoProposal, idx) => (
                         <div key={idx}>
                             <hr className='absolute mt-12 border-2 border-custom-purple w-full md:hidden'/>
                             <div className="relative w-full h-[20vh] md:w-[1040px] md:h-[199px] md:mb-16">
@@ -64,7 +66,8 @@ export default function Community({ id, daoDetails }: {id: string, daoDetails: D
                                 </Link>
                             </div>
                         </div>
-                    ))
+                    )) :    
+                        <h1 className='py-20 text-lg text-gray-500'>Empty handed? Maybe your next search will hit gold!</h1>
                 }
             </div>
         </main>
