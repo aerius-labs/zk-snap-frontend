@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ZkSnap: Verifiable on/off chain DAO voting with ballot privacy using storage proofs
+
+## Introduction
+**ZkSnap** is an innovative solution that revolutionizes the way DAO voting is conducted.
+
+Traditional voting systems often expose participants to the bandwagon effect, surveillance, and coercion, compromising the integrity of the decision-making process. ZkSnap changes the game by employing zk proofs, which allow individuals to cast their votes securely and anonymously. Your voting preferences remain confidential, safeguarding your autonomy and protecting against any external influence.
+
+Our unique integration of storage proofs guarantees the transparency and accuracy of the voting power of individuals. By leveraging storage proofs, we are able to verify the integrity of the voting individual and the exact voting power that they hold.
+
+**This repo consists of the frontend interface for ZkSnap.**
 
 ## Getting Started
 
@@ -24,17 +33,9 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
+We welcome contributions from the community!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+This project is UNLICENSED.
